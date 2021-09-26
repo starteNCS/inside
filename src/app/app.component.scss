@@ -1,0 +1,16 @@
+#page-container {
+    display: flex;
+    padding: 1em;
+
+    .page-card {
+        padding: 0.5em;
+    }
+
+    app-canvas {
+        flex: 3;
+    }
+
+    app-settings {
+        flex: 1;
+    }
+}
