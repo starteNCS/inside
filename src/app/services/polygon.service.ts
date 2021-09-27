@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
+import { Vector2 } from "../pip/vector/vector";
+import { VectorRay } from "../pip/vector/vector-ray";
 import { DebuggerService } from "./debugger.service";
 
 @Injectable({
@@ -11,13 +14,16 @@ export class PolygonService {
     private vertices: VertexModel[] = [];
     private onAddVertexSubject = new Subject<VertexModel>();
     private onAddEdgeSubject = new Subject<[VertexModel, VertexModel]>();
+    private onAddIntersectionSubject = new Subject<PointModel>();
 
     public onAddVertex: Observable<VertexModel>;
     public onAddEdge: Observable<[VertexModel, VertexModel]>;
+    public onAddIntersection: Observable<PointModel>;
 
     constructor(private readonly debuggerService: DebuggerService) {
         this.onAddVertex = this.onAddVertexSubject.asObservable();
         this.onAddEdge = this.onAddEdgeSubject.asObservable();
+        this.onAddIntersection = this.onAddIntersectionSubject.asObservable();
     }
 
     public addVertexToPolygon(x: number, y: number): void {
@@ -58,6 +64,33 @@ export class PolygonService {
         this.debuggerService.logInfo('Polygon completed');
         this.onAddVertexSubject.complete();
         this.onAddEdgeSubject.complete();
+    }
+
+    public addIntersection(point: PointModel): void {
+        this.onAddIntersectionSubject.next(point);
+    }
+
+    public toVectorRays(): VectorRay[] {
+        if (!this.onAddVertexSubject.isStopped || !this.onAddEdgeSubject.isStopped) {
+            this.debuggerService.logError('Cannot get VectorRays when polygon is not finished');
+            return [];
+        }
+
+        const vectorRays: VectorRay[] = [];
+        let previous: VertexModel;
+        this.vertices.forEach(vertex => {
+            if (!previous) {
+                previous = this.vertices[this.vertices.length - 1];
+            }
+
+            const location = new Vector2(vertex.X, vertex.Y);
+            const direction = new Vector2(vertex.X - previous.X, vertex.Y - previous.Y);
+
+            vectorRays.push(new VectorRay(location, direction));
+            previous = vertex;
+        });
+
+        return vectorRays;
     }
 
 }
