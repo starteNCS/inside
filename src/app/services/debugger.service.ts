@@ -12,9 +12,17 @@ export class DebuggerService {
     public onAddLog = new Subject<LogModel>();
 
     public log(level: LogLevel, content: string): void {
-        const log: LogModel = { level, content };
+        let log: LogModel = { level, content, count: 0 };
+        const previousLog = this.logs[this.logs.length - 1];
+        if (!previousLog || previousLog.content !== content) {
+            this.onAddLog.next(log);
+            this.logs.push(log);
+            return;
+        }
+
+        log = { ...log, count: previousLog.count + 1 }
+        this.logs[this.logs.length - 1] = log;
         this.onAddLog.next(log);
-        this.logs.push(log);
     }
 
     public logInfo(content: string): void {

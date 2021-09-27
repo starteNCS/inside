@@ -4,6 +4,7 @@
     <mat-icon *ngIf="item.level === LogLevel.Error" class="level-icon error">error</mat-icon>
     <p [ngClass]="{'warning': item.level === LogLevel.Warning, 'error': item.level === LogLevel.Error}">
       {{item.content}}
+      <span *ngIf="item.count > 0" [matBadge]="item.count" matBadgeOverlap="false"></span>
     </p>
   </mat-list-item>
 </mat-list>
