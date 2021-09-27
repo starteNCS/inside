@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PolygonService } from 'src/app/services/polygon.service';
+import { VertexModel } from 'src/app/models/vertex.model';
 
 @Component({
   selector: 'app-canvas',
@@ -20,27 +21,37 @@ export class CanvasComponent implements AfterViewInit {
     this.canvas.nativeElement.width = 1312;
     this.canvas.nativeElement.height = 656;
 
-    this.polygonService.onAddVertex.subscribe(currentPoint => {
-      this.drawPoint(currentPoint.X, currentPoint.Y);
-    });
+    this.polygonService.onAddVertex.subscribe(vertex => this.drawVertex(vertex));
+    this.polygonService.onAddEdge.subscribe(vertices => this.drawEdge(vertices[0], vertices[1]));
   }
 
 
-  addPoint(event: MouseEvent): void {
+  addVertex(event: MouseEvent): void {
     // this typescript compiler does not know about the getBoundingClientRect method,
     // so I need to fiddle arround with any here :|
     const boundingRect = (event.target as any).getBoundingClientRect();
 
-    this.polygonService.addVertexToPolygon(
-      event.clientX - boundingRect.left,
-      event.clientY - boundingRect.top);
+    if (event.button === 0) {
+      this.polygonService.addVertexToPolygon(
+        event.clientX - boundingRect.left,
+        event.clientY - boundingRect.top);
+    }
   }
 
-  private drawPoint(x: number, y: number) {
+  private drawVertex(vertex: VertexModel) {
     this.context.beginPath();
-    this.context.arc(x, y, 10, 0, 2 * Math.PI);
+    this.context.arc(vertex.X, vertex.Y, 10, 0, 2 * Math.PI);
     this.context.fillStyle = 'red';
     this.context.fill();
+    this.context.lineWidth = 2;
+    this.context.strokeStyle = 'white';
+    this.context.stroke();
+  }
+
+  private drawEdge(fromVertex: VertexModel, toVertex: VertexModel): void {
+    this.context.beginPath();
+    this.context.moveTo(fromVertex.X, fromVertex.Y);
+    this.context.lineTo(toVertex.X, toVertex.Y);
     this.context.lineWidth = 2;
     this.context.strokeStyle = 'white';
     this.context.stroke();
