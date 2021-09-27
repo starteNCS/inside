@@ -7,21 +7,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
+import { HistoryComponent } from './components/cards/settings/history/history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SettingsComponent,
-    CanvasComponent
+    CanvasComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatCardModule
+    MatCardModule,
+    MatTabsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
