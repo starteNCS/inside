@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PolygonService } from 'src/app/services/polygon.service';
+import { LogLevel } from 'src/app/models/enums/log-level.enum';
+import { DebuggerService } from 'src/app/services/debugger.service';
 
 @Component({
   selector: 'app-history',
@@ -8,7 +9,9 @@ import { PolygonService } from 'src/app/services/polygon.service';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor(public polygonService: PolygonService) { }
+  public LogLevel = LogLevel;
+
+  constructor(public debuggerService: DebuggerService) { }
 
   ngOnInit() {
 

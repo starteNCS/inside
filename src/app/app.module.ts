@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
@@ -28,7 +29,8 @@ import { HistoryComponent } from './components/cards/settings/history/history.co
     MatToolbarModule,
     MatCardModule,
     MatTabsModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
