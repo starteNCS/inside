@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { PolygonService } from 'src/app/services/polygon.service';
 import { VertexModel } from 'src/app/models/vertex.model';
 
@@ -10,7 +10,10 @@ import { VertexModel } from 'src/app/models/vertex.model';
 export class CanvasComponent implements AfterViewInit {
 
   private context: CanvasRenderingContext2D;
+
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+
+
 
   constructor(private readonly polygonService: PolygonService) { }
 
@@ -35,6 +38,14 @@ export class CanvasComponent implements AfterViewInit {
       this.polygonService.addVertexToPolygon(
         event.clientX - boundingRect.left,
         event.clientY - boundingRect.top);
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  finishPolygon(event: KeyboardEvent): void {
+    console.log(event)
+    if (event.key === ' ') {
+      this.polygonService.finishPolygon();
     }
   }
 
