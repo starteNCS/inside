@@ -22,7 +22,7 @@ export class PolygonService {
 
     public addVertexToPolygon(x: number, y: number): void {
         if (this.onAddVertexSubject.isStopped || this.onAddEdgeSubject.isStopped) {
-            this.debuggerService.logWarning('Polygon is completed. Please refresh to start over');
+            this.debuggerService.logWarning('Polygon is already completed. Please refresh to start over');
             return;
         }
         const vertex = { X: x, Y: y, position: this.vertices.length };
@@ -42,7 +42,7 @@ export class PolygonService {
 
     public finishPolygon(): void {
         if (this.onAddVertexSubject.isStopped || this.onAddEdgeSubject.isStopped) {
-            this.debuggerService.logWarning('Polygon is completed. Please refresh to start over');
+            this.debuggerService.logWarning('Polygon is already completed. Please refresh to start over');
             return;
         }
 

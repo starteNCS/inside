@@ -14,14 +14,16 @@ import { MatBadgeModule } from '@angular/material/badge';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
-import { HistoryComponent } from './components/cards/settings/history/history.component';
+import { DebuggerComponent } from './components/cards/settings/debugger/debugger.component';
+import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SettingsComponent,
     CanvasComponent,
-    HistoryComponent
+    DebuggerComponent,
+    RaycastComponent
   ],
   imports: [
     BrowserModule,
