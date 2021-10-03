@@ -1,0 +1,11 @@
+.raycast-angle {
+    margin: 1em 0em;
+
+    div {
+        display: flex;
+
+        mat-slider {
+            width: 100%;
+        }
+    }
+}

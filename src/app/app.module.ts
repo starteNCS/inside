@@ -13,17 +13,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
 import { DebuggerComponent } from './components/cards/settings/debugger/debugger.component';
+import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SettingsComponent,
     CanvasComponent,
-    DebuggerComponent
+    DebuggerComponent,
+    RaycastComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { DebuggerComponent } from './components/cards/settings/debugger/debugger
     MatBadgeModule,
     MatSelectModule,
     MatButtonModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
