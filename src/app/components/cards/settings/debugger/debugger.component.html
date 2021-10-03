@@ -23,5 +23,8 @@
         <span *ngIf="item.count > 0" [matBadge]="item.count" matBadgeOverlap="false"></span>
       </p>
     </mat-list-item>
+    <mat-list-item *ngIf="debuggerService.logs.length === 0">
+      <i>No Logs available</i>
+    </mat-list-item>
   </mat-list>
 </div>

@@ -1,3 +1,7 @@
+h4 {
+    margin-bottom: 0;
+}
+
 .polygon-loader {
     margin: 1em 0em;
     width: 100%;
@@ -10,6 +14,12 @@
     div {
         width: 100%;
         margin: auto 0.5em;
+    }
+}
+
+.logs {
+    mat-list {
+        margin: .5em .5em;
     }
 }
 
