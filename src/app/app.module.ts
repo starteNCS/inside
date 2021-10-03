@@ -11,6 +11,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
@@ -32,7 +34,9 @@ import { DebuggerComponent } from './components/cards/settings/debugger/debugger
     MatTabsModule,
     MatListModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

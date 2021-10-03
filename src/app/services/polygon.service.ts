@@ -31,16 +31,16 @@ export class PolygonService {
             this.debuggerService.logWarning('Polygon is already completed. Please refresh to start over');
             return;
         }
-        const vertex = { X: x, Y: y, position: this.vertices.length };
+        const vertex = { X: x, Y: y, positionInPolygon: this.vertices.length };
         this.onAddVertexSubject.next(vertex);
         this.vertices.push(vertex);
 
         if (this.vertices.length > 1) {
             this.onAddEdgeSubject.next([
-                this.vertices.find(v => v.position === vertex.position - 1)!,
+                this.vertices.find(v => v.positionInPolygon === vertex.positionInPolygon - 1)!,
                 vertex
             ]);
-            this.debuggerService.logInfo(`Added Vertex: (${x}, ${y}) with connection to ${vertex.position - 1}`);
+            this.debuggerService.logInfo(`Added Vertex: (${x}, ${y}) with connection to ${vertex.positionInPolygon - 1}`);
             return;
         }
         this.debuggerService.logInfo(`Added Vertex: (${x}, ${y})`);
@@ -78,7 +78,7 @@ export class PolygonService {
 
         const vectorRays: VectorRay[] = [];
         let previous: VertexModel;
-        this.vertices.forEach(vertex => {
+        this.vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon).forEach(vertex => {
             if (!previous) {
                 previous = this.vertices[this.vertices.length - 1];
             }
