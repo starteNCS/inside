@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import { PointModel } from "../models/point.model";
 import { DebuggerService } from "../services/debugger.service";
 import { PolygonService } from "../services/polygon.service";
@@ -13,7 +14,9 @@ export class RaycastAlgorithm implements PointInPolygon {
 
     constructor(
         private readonly polygonService: PolygonService,
-        private readonly debuggerService: DebuggerService) { }
+        private readonly debuggerService: DebuggerService) {
+
+    }
 
     public isPointInPolygon(point: PointModel): boolean {
         let intersections = 0;

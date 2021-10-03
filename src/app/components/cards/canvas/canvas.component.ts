@@ -4,6 +4,8 @@ import { VertexModel } from 'src/app/models/vertex.model';
 import { RaycastAlgorithm } from 'src/app/pip/raycast.algorithm';
 import { PointModel } from 'src/app/models/point.model';
 import { PointService } from 'src/app/services/point.service';
+import { VectorRay } from 'src/app/pip/vector/vector-ray';
+import { RaycastService } from 'src/app/services/raycast.service';
 
 @Component({
   selector: 'app-canvas',
@@ -16,11 +18,10 @@ export class CanvasComponent implements AfterViewInit {
 
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
-
-
   constructor(
     private readonly polygonService: PolygonService,
     private readonly pointService: PointService,
+    private readonly raycastService: RaycastService,
     private readonly raycastAlgorithm: RaycastAlgorithm) { }
 
   ngAfterViewInit(): void {
@@ -34,8 +35,8 @@ export class CanvasComponent implements AfterViewInit {
     this.polygonService.onAddEdge.subscribe(vertices => this.drawEdge(vertices[0], vertices[1]));
     this.polygonService.onAddIntersection.subscribe(point => this.drawIntersection(point));
     this.pointService.point.subscribe(point => this.drawPoint(point));
+    this.raycastService.vectorRay.subscribe(ray => this.drawRay(ray));
 
-    this.drawRay();
   }
 
 
@@ -72,10 +73,10 @@ export class CanvasComponent implements AfterViewInit {
     }
   }
 
-  private drawRay(): void {
+  private drawRay(ray: VectorRay): void {
     this.context.beginPath();
-    this.context.moveTo(600, 300);
-    this.context.lineTo(this.canvas.nativeElement.width, 300);
+    this.context.moveTo(ray.location.X, ray.location.Y);
+    this.context.lineTo(ray.location.X + 10000 * ray.dirction.X, ray.location.Y + 10000 * ray.dirction.Y);
     this.context.lineWidth = 2;
     this.context.strokeStyle = 'white';
     this.context.stroke();

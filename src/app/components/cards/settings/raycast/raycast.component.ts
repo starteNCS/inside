@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
+import { RaycastService } from 'src/app/services/raycast.service';
 
 @Component({
   selector: 'app-raycast',
@@ -10,13 +11,17 @@ export class RaycastComponent implements OnInit {
 
   selectedAngle = 0;
 
-  constructor() { }
+  constructor(private readonly raycastService: RaycastService) { }
 
   ngOnInit(): void {
   }
 
-  changeSelectedAngle(changeEvent: MatSliderChange): void {
+  changeDisplaySelectedAngle(changeEvent: MatSliderChange): void {
     this.selectedAngle = changeEvent.value as number;
+  }
+
+  changeSelectedAngle(changeEvent: MatSliderChange): void {
+    this.raycastService.changeAngle(changeEvent.value as number);
   }
 
 }

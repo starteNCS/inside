@@ -9,6 +9,7 @@ import { DebuggerService } from "./debugger.service";
 export class PointService {
     private pointSubject = new Subject<PointModel>();
     public point: Observable<PointModel>;
+    public currentPoint: PointModel | undefined = undefined;
 
     constructor(private readonly debuggerService: DebuggerService) {
         this.point = this.pointSubject.asObservable();
@@ -24,6 +25,7 @@ export class PointService {
         this.pointSubject.next({
             X, Y
         });
+        this.currentPoint = { X, Y };
         this.pointSubject.complete();
     }
 }
