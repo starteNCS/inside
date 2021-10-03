@@ -1,5 +1,5 @@
 <mat-card>
-    <canvas #canvas (click)="addVertex($event)">
+    <canvas #canvas (click)="addVertex($event)" (contextmenu)="addPoint($event)">
         To use this application, please try a browser that supports HTML5 canvas.
     </canvas>
 </mat-card>

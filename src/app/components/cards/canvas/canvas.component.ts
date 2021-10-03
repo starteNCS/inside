@@ -3,6 +3,7 @@ import { PolygonService } from 'src/app/services/polygon.service';
 import { VertexModel } from 'src/app/models/vertex.model';
 import { RaycastAlgorithm } from 'src/app/pip/raycast.algorithm';
 import { PointModel } from 'src/app/models/point.model';
+import { PointService } from 'src/app/services/point.service';
 
 @Component({
   selector: 'app-canvas',
@@ -19,6 +20,7 @@ export class CanvasComponent implements AfterViewInit {
 
   constructor(
     private readonly polygonService: PolygonService,
+    private readonly pointService: PointService,
     private readonly raycastAlgorithm: RaycastAlgorithm) { }
 
   ngAfterViewInit(): void {
@@ -31,9 +33,9 @@ export class CanvasComponent implements AfterViewInit {
     this.polygonService.onAddVertex.subscribe(vertex => this.drawVertex(vertex));
     this.polygonService.onAddEdge.subscribe(vertices => this.drawEdge(vertices[0], vertices[1]));
     this.polygonService.onAddIntersection.subscribe(point => this.drawIntersection(point));
+    this.pointService.point.subscribe(point => this.drawPoint(point));
 
     this.drawRay();
-    this.drawPoint({ X: 600, Y: 300 });
   }
 
 
@@ -47,6 +49,18 @@ export class CanvasComponent implements AfterViewInit {
         event.clientX - boundingRect.left,
         event.clientY - boundingRect.top);
     }
+  }
+
+  addPoint(event: MouseEvent): void {
+    // this typescript compiler does not know about the getBoundingClientRect method,
+    // so I need to fiddle arround with any here :|
+    const boundingRect = (event.target as any).getBoundingClientRect();
+
+    event.preventDefault();
+    this.pointService.changePoint(
+      event.clientX - boundingRect.left,
+      event.clientY - boundingRect.top
+    );
   }
 
   @HostListener('document:keydown', ['$event'])
