@@ -83,7 +83,7 @@ export class PolygonService {
                 previous = this.vertices[this.vertices.length - 1];
             }
 
-            const location = new Vector2(vertex.X, vertex.Y);
+            const location = new Vector2(previous.X, previous.Y);
             const direction = new Vector2(vertex.X - previous.X, vertex.Y - previous.Y);
 
             vectorRays.push(new VectorRay(location, direction));

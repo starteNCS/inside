@@ -22,7 +22,7 @@ export class RaycastAlgorithm implements PointInPolygon {
 
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
-            if (multiples[1] >= 0 && multiples[1] <= 1) {
+            if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
                 intersections += 1;
                 const intersection = ray.getIntersectionPoint(vectorRay)!;
                 this.polygonService.addIntersection({
