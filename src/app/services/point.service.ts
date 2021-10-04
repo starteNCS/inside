@@ -2,30 +2,22 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { PointModel } from "../models/point.model";
 import { DebuggerService } from "./debugger.service";
+import { RaycastService } from "./raycast.service";
+import { StateService } from "./state.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PointService {
-    private pointSubject = new Subject<PointModel>();
-    public point: Observable<PointModel>;
-    public currentPoint: PointModel | undefined = undefined;
 
-    constructor(private readonly debuggerService: DebuggerService) {
-        this.point = this.pointSubject.asObservable();
+    constructor(
+        private readonly state: StateService,
+        private readonly debuggerService: DebuggerService,
+        private readonly raycastService: RaycastService) {
     }
 
     public changePoint(X: number, Y: number): void {
-        if (this.pointSubject.isStopped) {
-            this.debuggerService.logWarning('Point is already set. Please refresh to start over');
-            return;
-        }
-
-
-        this.pointSubject.next({
-            X, Y
-        });
-        this.currentPoint = { X, Y };
-        this.pointSubject.complete();
+        this.state.setPoint({ X, Y });
+        this.raycastService.changeAngle(0);
     }
 }

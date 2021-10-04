@@ -32,7 +32,8 @@ export class DebuggerComponent implements OnInit {
         { X: 500, Y: 400, positionInPolygon: 1 },
         { X: 700, Y: 400, positionInPolygon: 2 },
         { X: 700, Y: 200, positionInPolygon: 3 }
-      ]
+      ],
+      isComplete: true
     });
 
   }
@@ -45,7 +46,6 @@ export class DebuggerComponent implements OnInit {
     polygon.vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon).forEach(vertex => {
       this.polygonService.addVertexToPolygon(vertex.X, vertex.Y);
     });
-    this.polygonService.finishPolygon();
 
     this.debuggerService.logInfo(`Successfully loaded Polygon: ${polygon.name}`);
   }

@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { PointModel } from "../models/point.model";
+import { ResultModel } from "../models/result.model";
 import { DebuggerService } from "../services/debugger.service";
 import { PolygonService } from "../services/polygon.service";
-import { RaycastService } from "../services/raycast.service";
+import { StateService } from "../services/state.service";
 import { PointInPolygon } from "./point-in-polygon.interface";
 
 @Injectable({
@@ -11,31 +12,37 @@ import { PointInPolygon } from "./point-in-polygon.interface";
 export class RaycastAlgorithm implements PointInPolygon {
 
     constructor(
+        private readonly state: StateService,
         private readonly polygonService: PolygonService,
-        private readonly raycastService: RaycastService,
-        private readonly debuggerService: DebuggerService) {
-
+        private readonly debuggerService: DebuggerService,
+    ) {
     }
 
-    public isPointInPolygon(point: PointModel): boolean {
-        let intersections = 0;
+    public isPointInPolygon(): ResultModel {
+        let intersections: PointModel[] = [];
         const vectorRays = this.polygonService.toVectorRays();
-        const ray = this.raycastService.currentVectorRay;
+        const ray = this.state.getRay();
+
+        if (!ray) {
+            this.debuggerService.logError('Cannot check for intersections when ray is not set');
+            return {
+                pointInsidePolygon: false,
+                intersectionPoints: []
+            };
+        }
 
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
             if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
-                intersections += 1;
                 const intersection = ray.getIntersectionPoint(vectorRay)!;
-                this.polygonService.addIntersection({
-                    X: intersection.X,
-                    Y: intersection.Y
-                });
+                intersections.push(intersection);
             }
         });
 
-        this.debuggerService.logInfo(`Raycasting Algorithm found ${intersections} intersections.`)
-        return intersections % 2 != 0;
+        return {
+            pointInsidePolygon: intersections.length % 2 != 0,
+            intersectionPoints: intersections
+        };
     }
 
 }

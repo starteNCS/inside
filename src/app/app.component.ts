@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { RaycastAlgorithm } from './pip/raycast.algorithm';
+import { RenderService } from './services/render.service';
+import { StateService } from './services/state.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PIP';
+
+
+  constructor(
+    state: StateService,
+    renderService: RenderService,
+    raycastAlgorithm: RaycastAlgorithm
+  ) {
+    state.redrawRequest.subscribe(() => {
+      state.clearIntersections();
+      const result = raycastAlgorithm.isPointInPolygon();
+
+      result.intersectionPoints.forEach(intersection => {
+        state.addIntersectionNoRedrawRequest(intersection);
+      });
+
+      renderService.redraw();
+    });
+  }
 }

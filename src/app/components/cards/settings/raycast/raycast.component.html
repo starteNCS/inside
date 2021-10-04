@@ -2,7 +2,7 @@
     <mat-label>Raycast emitted Angle</mat-label>
     <div>
         <mat-slider min="0" max="360" step="1" [value]="selectedAngle" (input)="changeDisplaySelectedAngle($event)"
-            (change)="changeSelectedAngle($event)" color="primary">
+            color="primary">
         </mat-slider>
         <p>{{selectedAngle | number:'3.0-0'}}°</p>
     </div>
