@@ -23,10 +23,12 @@ export class CanvasComponent implements AfterViewInit {
     this.context = this.canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
     // TODO: Need to fix this. Currently only works for 1920x1080 monitors and i need to readjust it 
     // every time the flex layout changes
-    this.canvas.nativeElement.width = 1240;
-    this.canvas.nativeElement.height = 620;
+    const w = 1306;
+    const h = 563;
+    this.canvas.nativeElement.width = w;
+    this.canvas.nativeElement.height = h;
 
-    this.renderService.init(this.context, 1240, 620);
+    this.renderService.init(this.context, w, h);
   }
 
 
