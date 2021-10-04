@@ -2,15 +2,17 @@
     display: flex;
     padding: 1em;
 
-    .page-card {
-        padding: 0.5em;
-    }
-
     app-canvas {
         flex: 3;
+        padding: .5em;
     }
 
-    app-settings {
+    div {
+        padding: .5em;
         flex: 1;
+
+        app-debugger {
+            margin-top: .25em;
+        }
     }
 }

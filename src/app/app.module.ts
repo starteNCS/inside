@@ -17,7 +17,7 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
-import { DebuggerComponent } from './components/cards/settings/debugger/debugger.component';
+import { DebuggerComponent } from './components/cards/debugger/debugger.component';
 import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
 
 @NgModule({
