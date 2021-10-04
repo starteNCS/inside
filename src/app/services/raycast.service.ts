@@ -15,6 +15,8 @@ export class RaycastService {
     public angle: Observable<number>;
     public vectorRay: Observable<VectorRay>;
 
+    public currentVectorRay: VectorRay;
+
     constructor(
         private readonly pointService: PointService,
         private readonly debuggerService: DebuggerService) {
@@ -40,6 +42,7 @@ export class RaycastService {
         const location = new Vector2(point.X, point.Y);
         const direction = new Vector2(Math.cos(radiants), Math.sin(radiants));
 
-        return new VectorRay(location, direction);
+        this.currentVectorRay = new VectorRay(location, direction);
+        return this.currentVectorRay;
     }
 }

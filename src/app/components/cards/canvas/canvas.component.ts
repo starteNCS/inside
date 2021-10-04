@@ -69,7 +69,7 @@ export class CanvasComponent implements AfterViewInit {
     if (event.key === ' ') {
       this.polygonService.finishPolygon();
     } else if (event.key === 'c') {
-      this.raycastAlgorithm.isPointInPolygon({ X: 600, Y: 300 });
+      this.raycastAlgorithm.isPointInPolygon(this.pointService.currentPoint as PointModel);
     }
   }
 
@@ -111,7 +111,7 @@ export class CanvasComponent implements AfterViewInit {
     this.context.lineTo(point.X + 5, point.Y - 5);
 
     this.context.lineWidth = 2;
-    this.context.strokeStyle = 'white';
+    this.context.strokeStyle = 'orange';
     this.context.stroke();
   }
 

@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
 import { PointModel } from "../models/point.model";
 import { DebuggerService } from "../services/debugger.service";
 import { PolygonService } from "../services/polygon.service";
+import { RaycastService } from "../services/raycast.service";
 import { PointInPolygon } from "./point-in-polygon.interface";
-import { Vector2 } from "./vector/vector";
-import { VectorRay } from "./vector/vector-ray";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +12,7 @@ export class RaycastAlgorithm implements PointInPolygon {
 
     constructor(
         private readonly polygonService: PolygonService,
+        private readonly raycastService: RaycastService,
         private readonly debuggerService: DebuggerService) {
 
     }
@@ -21,7 +20,7 @@ export class RaycastAlgorithm implements PointInPolygon {
     public isPointInPolygon(point: PointModel): boolean {
         let intersections = 0;
         const vectorRays = this.polygonService.toVectorRays();
-        const ray = new VectorRay(new Vector2(point.X, point.Y), new Vector2(1, 0));
+        const ray = this.raycastService.currentVectorRay;
 
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
