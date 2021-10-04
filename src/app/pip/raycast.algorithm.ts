@@ -24,7 +24,6 @@ export class RaycastAlgorithm implements PointInPolygon {
         const ray = this.state.getRay();
 
         if (!ray) {
-            this.debuggerService.logError('Cannot check for intersections when ray is not set');
             return {
                 pointInsidePolygon: false,
                 intersectionPoints: []

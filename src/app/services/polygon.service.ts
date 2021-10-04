@@ -30,7 +30,6 @@ export class PolygonService {
 
     public toVectorRays(): VectorRay[] {
         if (!this.state.getPolygon()?.isComplete) {
-            this.debuggerService.logError('Cannot get VectorRays when polygon is not finished');
             return [];
         }
 
