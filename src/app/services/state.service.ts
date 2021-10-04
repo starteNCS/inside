@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { InPolygonResult } from "../models/enums/in-polygon-result.enum";
 import { PointModel } from "../models/point.model";
 import { PolygonModel } from "../models/polygon.model";
 import { VertexModel } from "../models/vertex.model";
@@ -14,6 +15,8 @@ export class StateService {
     private point: PointModel | undefined;
     private ray: VectorRay | undefined;
     private intersections: PointModel[] = [];
+
+    public isInPolygonRaycast = InPolygonResult.NotCalculated;
 
     private redrawRequestSubject = new Subject<void>();
     public redrawRequest: Observable<void>;

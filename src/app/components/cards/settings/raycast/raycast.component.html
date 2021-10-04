@@ -7,3 +7,11 @@
         <p>{{selectedAngle | number:'3.0-0'}}°</p>
     </div>
 </div>
+
+<div class="result" *ngIf="state.isInPolygonRaycast !== inPolygonResult.NotCalculated" [ngClass]="{
+    'in-polygon': state.isInPolygonRaycast === inPolygonResult.InPolygon,
+    'not-in-polygon': state.isInPolygonRaycast === inPolygonResult.NotInPolygon
+}">
+    <h4 *ngIf="state.isInPolygonRaycast === inPolygonResult.InPolygon">Point is in Polygon</h4>
+    <h4 *ngIf="state.isInPolygonRaycast === inPolygonResult.NotInPolygon">Point is not in Polygon</h4>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InPolygonResult } from './models/enums/in-polygon-result.enum';
 import { RaycastAlgorithm } from './pip/raycast.algorithm';
 import { RenderService } from './services/render.service';
 import { StateService } from './services/state.service';
@@ -21,6 +22,7 @@ export class AppComponent {
       state.clearIntersections();
       const result = raycastAlgorithm.isPointInPolygon();
 
+      state.isInPolygonRaycast = result.pointInsidePolygon ? InPolygonResult.InPolygon : InPolygonResult.NotInPolygon;
       result.intersectionPoints.forEach(intersection => {
         state.addIntersectionNoRedrawRequest(intersection);
       });

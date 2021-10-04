@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { RaycastAlgorithm } from 'src/app/pip/raycast.algorithm';
+import { InPolygonResult } from 'src/app/models/enums/in-polygon-result.enum';
 import { RaycastService } from 'src/app/services/raycast.service';
 import { RenderService } from 'src/app/services/render.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-raycast',
@@ -13,7 +14,10 @@ export class RaycastComponent implements OnInit {
 
   selectedAngle = 0;
 
+  inPolygonResult = InPolygonResult;
+
   constructor(
+    public state: StateService,
     private readonly raycastService: RaycastService,
     private readonly renderService: RenderService) { }
 
