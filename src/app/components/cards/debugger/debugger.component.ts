@@ -51,6 +51,7 @@ export class DebuggerComponent implements OnInit {
       return;
     }
 
+    this.state.clearState();
     polygon.vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon).forEach(vertex => {
       this.polygonService.addVertexToPolygon(vertex.X, vertex.Y);
     });

@@ -25,6 +25,15 @@ export class StateService {
         this.redrawRequest = this.redrawRequestSubject.asObservable();
     }
 
+    public clearState() {
+        this.polygon = undefined;
+        this.point = undefined;
+        this.ray = undefined;
+        this.intersections = [];
+        this.isInPolygonRaycast = InPolygonResult.NotCalculated;
+        this.redrawRequestSubject.next();
+    }
+
     public setPolygon(polygon: PolygonModel): void {
         this.polygon = polygon;
     }
