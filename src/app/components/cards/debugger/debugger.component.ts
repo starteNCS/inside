@@ -51,12 +51,16 @@ export class DebuggerComponent implements OnInit {
       return;
     }
 
-    this.state.clearState();
+    this.state.reset();
     polygon.vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon).forEach(vertex => {
       this.polygonService.addVertexToPolygon(vertex.X, vertex.Y);
     });
 
     this.debuggerService.logInfo(`Successfully loaded Polygon: ${polygon.name}`);
+  }
+
+  reset(): void {
+    this.state.reset();
   }
 
   startSimulation(): void {

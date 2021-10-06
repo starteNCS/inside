@@ -25,7 +25,7 @@ export class StateService {
         this.redrawRequest = this.redrawRequestSubject.asObservable();
     }
 
-    public clearState() {
+    public reset() {
         this.polygon = undefined;
         this.point = undefined;
         this.ray = undefined;

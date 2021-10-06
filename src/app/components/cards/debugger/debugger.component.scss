@@ -23,18 +23,27 @@ h4 {
     margin-bottom: 0;
 }
 
-.polygon-loader {
-    margin: 1em 0em;
-    width: 100%;
-    display: flex;
-
-    * {
-        margin: 0em 0.5em;
+.polygon {
+    .polygon-loader {
+        margin: 1em 0em;
+        width: 100%;
+        display: flex;
+    
+        * {
+            margin: 0em 0.5em;
+        }
+    
+        div {
+            width: 100%;
+            margin: auto 0.5em;
+        }
     }
 
-    div {
+    .polygon-reset {
         width: 100%;
-        margin: auto 0.5em;
+        button {
+            width: 100%;
+        }
     }
 }
 

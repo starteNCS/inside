@@ -3,7 +3,7 @@
     Debugger
   </mat-card-title>
   <mat-card-content>
-    <div>
+    <div class="polygon">
       <h4>Polygon</h4>
       <div class="polygon-loader">
         <div>
@@ -14,6 +14,11 @@
           </mat-select>
         </div>
         <button mat-raised-button color="primary" (click)="loadPolygon(selected)">Load</button>
+      </div>
+      <div class="polygon-reset">
+        <button mat-raised-button color="primary" (click)="reset()">
+          Reset
+        </button>
       </div>
     </div>
 
