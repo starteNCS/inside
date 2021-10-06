@@ -12,6 +12,7 @@ export class CanvasComponent implements AfterViewInit {
 
   private context: CanvasRenderingContext2D;
 
+  @ViewChild('canvasContainer') canvasContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   constructor(
@@ -21,14 +22,10 @@ export class CanvasComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.context = this.canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
-    // TODO: Need to fix this. Currently only works for 1920x1080 monitors and i need to readjust it 
-    // every time the flex layout changes
-    const w = 1306;
-    const h = 563;
-    this.canvas.nativeElement.width = w;
-    this.canvas.nativeElement.height = h;
+    this.renderService.init(this.context);
 
-    this.renderService.init(this.context, w, h);
+    this.resizeCanvas();
+    window.addEventListener('resize', () => this.resizeCanvas(), false);
   }
 
 
@@ -54,6 +51,20 @@ export class CanvasComponent implements AfterViewInit {
       event.clientX - boundingRect.left,
       event.clientY - boundingRect.top
     );
+  }
+
+  resizeCanvas(): void {
+    const width = this.canvasContainer.nativeElement.clientWidth;
+    const height = this.canvasContainer.nativeElement.clientHeight;
+    this.canvas.nativeElement.width = width;
+    this.canvas.nativeElement.height = height;
+
+    this.renderService.updateSize(width, height);
+
+    // if the redraw call is not enqueued into the callstack, an expression (drawTime) changes after it was marked as checked 
+    setTimeout(() => {
+      this.renderService.redraw();
+    }, 0);
   }
 
 }

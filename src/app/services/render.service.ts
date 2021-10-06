@@ -24,21 +24,38 @@ export class RenderService {
         private readonly debuggerService: DebuggerService,
         private readonly debuggerState: DebuggerStateService) { }
 
-    public init(
+    public initWidthSize(
         canvasContext: CanvasRenderingContext2D,
         width: number,
         height: number
     ): void {
+        this.init(canvasContext);
+        this.updateSize(width, height);
+    }
+
+    public init(canvasContext: CanvasRenderingContext2D): void {
         this.context = canvasContext;
-        this.width = width;
-        this.height = height;
-
         this.state.redrawRequest.subscribe(() => this.redraw());
-
         this.initialized = true;
     }
 
+    public updateSize(width: number, height: number): void {
+        let ratio = 1;
+        if (this.width && this.height) {
+            ratio = width / this.width;
+        }
+
+        this.width = width;
+        this.height = height;
+        this.state.adjustPositionsToScreensize(ratio);
+    }
+
     public redraw(): void {
+        if (!this.initialized) {
+            this.debuggerService.logError(this.cannotDrawError);
+            return;
+        }
+
         const t1 = performance.now();
         this.context.clearRect(0, 0, this.width, this.height);
 

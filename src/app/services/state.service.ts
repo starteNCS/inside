@@ -34,6 +34,31 @@ export class StateService {
         this.redrawRequestSubject.next();
     }
 
+    public adjustPositionsToScreensize(ratio: number): void {
+        this.polygon?.vertices.forEach(vertex => {
+            vertex.X *= ratio;
+            vertex.Y *= ratio;
+        });
+
+        if (this.point) {
+            this.point.X *= ratio;
+            this.point.Y *= ratio;
+        }
+
+        if (this.ray) {
+            this.ray.location.X *= ratio;
+            this.ray.location.Y *= ratio;
+
+            this.ray.dirction.X *= ratio;
+            this.ray.dirction.Y *= ratio;
+        }
+
+        this.intersections.forEach(point => {
+            point.X *= ratio;
+            point.Y *= ratio;
+        })
+    }
+
     public setPolygon(polygon: PolygonModel): void {
         this.polygon = polygon;
     }
