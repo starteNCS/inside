@@ -4,6 +4,8 @@ import { PolygonModel } from 'src/app/models/polygon.model';
 import { DebuggerStateService } from 'src/app/services/debugger-state.service';
 import { DebuggerService } from 'src/app/services/debugger.service';
 import { PolygonService } from 'src/app/services/polygon.service';
+import { RaycastService } from 'src/app/services/raycast.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-debugger',
@@ -14,16 +16,20 @@ export class DebuggerComponent implements OnInit {
 
   public LogLevel = LogLevel;
 
-  logsShown = false;
-
   selected: PolygonModel;
   polygons: PolygonModel[] = [];
+
+  isSimulationRunning = false;
+
+  logsShown = false;
 
 
   constructor(
     public debuggerService: DebuggerService,
     public debuggerState: DebuggerStateService,
-    private readonly polygonService: PolygonService) { }
+    private readonly polygonService: PolygonService,
+    private readonly state: StateService,
+    private readonly raycastService: RaycastService) { }
 
   ngOnInit() {
 
@@ -40,10 +46,6 @@ export class DebuggerComponent implements OnInit {
 
   }
 
-  toggleLogs(): void {
-    this.logsShown = !this.logsShown;
-  }
-
   loadPolygon(polygon: PolygonModel): void {
     if (!polygon || polygon.vertices.length === 0) {
       return;
@@ -54,6 +56,28 @@ export class DebuggerComponent implements OnInit {
     });
 
     this.debuggerService.logInfo(`Successfully loaded Polygon: ${polygon.name}`);
+  }
+
+  startSimulation(): void {
+    if (!this.state.getPolygon().isComplete) {
+      return;
+    }
+    this.isSimulationRunning = true;
+
+    let currentAngle = 0;
+    const interval = setInterval(() => {
+      this.raycastService.changeAngle(currentAngle++);
+
+      if (currentAngle === 360) {
+        this.isSimulationRunning = false;
+        clearInterval(interval);
+      }
+    }, 10)
+  }
+
+
+  toggleLogs(): void {
+    this.logsShown = !this.logsShown;
   }
 
 }

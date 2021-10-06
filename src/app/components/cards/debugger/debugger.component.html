@@ -46,6 +46,11 @@
           <td>{{debuggerState.averageRedrawTime | number:'1.2-2'}}ms</td>
         </tr>
       </table>
+      <div class="simulate">
+        <button mat-raised-button color="primary" [disabled]="isSimulationRunning" (click)="startSimulation()">
+          Simulate every angle
+        </button>
+      </div>
     </div>
 
     <div class="logs">
