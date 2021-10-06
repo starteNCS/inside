@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
 import { VectorRay } from "../pip/vector/vector-ray";
+import { DebuggerStateService } from "./debugger-state.service";
 import { DebuggerService } from "./debugger.service";
 import { PointService } from "./point.service";
 import { StateService } from "./state.service";
@@ -20,7 +21,8 @@ export class RenderService {
 
     constructor(
         private readonly state: StateService,
-        private readonly debuggerService: DebuggerService) { }
+        private readonly debuggerService: DebuggerService,
+        private readonly debuggerState: DebuggerStateService) { }
 
     public init(
         canvasContext: CanvasRenderingContext2D,
@@ -37,6 +39,7 @@ export class RenderService {
     }
 
     public redraw(): void {
+        const t1 = performance.now();
         this.context.clearRect(0, 0, this.width, this.height);
 
         const vertices = this.state.getPolygon()?.vertices ?? [];
@@ -62,8 +65,9 @@ export class RenderService {
         }
 
         const intersections = this.state.getIntersections();
-        console.log(intersections)
         intersections.forEach(intersection => this.drawIntersection(intersection));
+        const t2 = performance.now();
+        this.debuggerState.setRedrawTime(t2 - t1);
     }
 
     public drawRay(ray: VectorRay): void {

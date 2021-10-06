@@ -17,6 +17,37 @@
       </div>
     </div>
 
+    <div class="performance">
+      <div id="title">
+        <h4>
+          Performance
+        </h4>
+        <mat-icon aria-hidden="false" aria-label="Info"
+          matTooltip="Javascript can only check performances in milliseconds. Therefore this is only an rough estimate.">
+          info</mat-icon>
+      </div>
+      <table>
+        <tr>
+          <th></th>
+          <th>Algorithm</th>
+          <th>To Vector Rays</th>
+          <th>Redraw</th>
+        </tr>
+        <tr>
+          <td class="left-align">Latest</td>
+          <td>{{debuggerState.latestAlgorithmTime | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.latestToVectorRaysTime | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.latestRedrawTime | number:'1.2-2'}}ms</td>
+        </tr>
+        <tr>
+          <td class="left-align">Average</td>
+          <td>{{debuggerState.averageAlgorithmTime | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.averageToVectorRaysTime | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.averageRedrawTime | number:'1.2-2'}}ms</td>
+        </tr>
+      </table>
+    </div>
+
     <div class="logs">
       <h4>Logs</h4>
       <mat-list>

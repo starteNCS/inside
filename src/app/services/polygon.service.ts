@@ -3,6 +3,7 @@ import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
 import { Vector2 } from "../pip/vector/vector";
 import { VectorRay } from "../pip/vector/vector-ray";
+import { DebuggerStateService } from "./debugger-state.service";
 import { DebuggerService } from "./debugger.service";
 import { StateService } from "./state.service";
 
@@ -13,7 +14,8 @@ export class PolygonService {
 
     constructor(
         private readonly state: StateService,
-        private readonly debuggerService: DebuggerService
+        private readonly debuggerService: DebuggerService,
+        private readonly debuggerState: DebuggerStateService
     ) {
     }
 
@@ -33,6 +35,7 @@ export class PolygonService {
             return [];
         }
 
+        const t1 = performance.now();
         const polygon = this.state.getPolygon();
         const vectorRays: VectorRay[] = [];
         let previous: VertexModel;
@@ -47,6 +50,8 @@ export class PolygonService {
             vectorRays.push(new VectorRay(location, direction));
             previous = vertex;
         });
+        const t2 = performance.now();
+        this.debuggerState.setToVectorRaysTime(t2 - t1);
 
         return vectorRays;
     }

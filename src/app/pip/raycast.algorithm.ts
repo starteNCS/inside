@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { PointModel } from "../models/point.model";
 import { ResultModel } from "../models/result.model";
+import { DebuggerStateService } from "../services/debugger-state.service";
 import { DebuggerService } from "../services/debugger.service";
 import { PolygonService } from "../services/polygon.service";
 import { StateService } from "../services/state.service";
@@ -14,7 +15,7 @@ export class RaycastAlgorithm implements PointInPolygon {
     constructor(
         private readonly state: StateService,
         private readonly polygonService: PolygonService,
-        private readonly debuggerService: DebuggerService,
+        private readonly debuggerState: DebuggerStateService,
     ) {
     }
 
@@ -30,6 +31,7 @@ export class RaycastAlgorithm implements PointInPolygon {
             };
         }
 
+        const t1 = performance.now();
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
             if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
@@ -37,6 +39,8 @@ export class RaycastAlgorithm implements PointInPolygon {
                 intersections.push(intersection);
             }
         });
+        const t2 = performance.now();
+        this.debuggerState.setAlgorithmTime(t2 - t1);
 
         return {
             pointInsidePolygon: intersections.length % 2 != 0,

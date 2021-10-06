@@ -21,6 +21,30 @@ h4 {
     }
 }
 
+.performance {
+    #title {
+        display: flex;
+        margin: 0.25em 0;
+        
+        h4{
+            margin: auto .125em auto 0em;
+        }
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+
+    table {
+        text-align: center;
+        width: 100%;
+
+        .left-align {
+            text-align: left;
+        }
+    }
+}
+
 .logs {
     mat-list {
         margin: .5em .5em;

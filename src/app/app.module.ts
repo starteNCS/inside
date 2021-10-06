@@ -14,6 +14,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
@@ -41,6 +42,7 @@ import { RaycastComponent } from './components/cards/settings/raycast/raycast.co
     MatSelectModule,
     MatButtonModule,
     MatSliderModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

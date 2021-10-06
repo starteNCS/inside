@@ -1,8 +1,7 @@
-import { verifyHostBindings } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { LogLevel } from 'src/app/models/enums/log-level.enum';
 import { PolygonModel } from 'src/app/models/polygon.model';
-import { VertexModel } from 'src/app/models/vertex.model';
+import { DebuggerStateService } from 'src/app/services/debugger-state.service';
 import { DebuggerService } from 'src/app/services/debugger.service';
 import { PolygonService } from 'src/app/services/polygon.service';
 
@@ -21,6 +20,7 @@ export class DebuggerComponent implements OnInit {
 
   constructor(
     public debuggerService: DebuggerService,
+    public debuggerState: DebuggerStateService,
     private readonly polygonService: PolygonService) { }
 
   ngOnInit() {
