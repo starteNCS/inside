@@ -6,11 +6,5 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class SettingsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class SettingsComponent {
 }

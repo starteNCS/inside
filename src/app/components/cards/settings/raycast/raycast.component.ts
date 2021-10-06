@@ -10,7 +10,7 @@ import { StateService } from 'src/app/services/state.service';
   templateUrl: './raycast.component.html',
   styleUrls: ['./raycast.component.scss']
 })
-export class RaycastComponent implements OnInit {
+export class RaycastComponent {
 
   selectedAngle = 0;
 
@@ -20,9 +20,6 @@ export class RaycastComponent implements OnInit {
     public state: StateService,
     private readonly raycastService: RaycastService,
     private readonly renderService: RenderService) { }
-
-  ngOnInit(): void {
-  }
 
   changeDisplaySelectedAngle(changeEvent: MatSliderChange): void {
     this.renderService.redraw();
