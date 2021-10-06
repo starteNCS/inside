@@ -120,15 +120,16 @@ export class RenderService {
             return;
         }
 
+        const pathLength = 5;
         this.context.beginPath();
-        this.context.moveTo(point.X - 5, point.Y - 5);
-        this.context.lineTo(point.X + 5, point.Y + 5);
+        this.context.moveTo(point.X - pathLength, point.Y - pathLength);
+        this.context.lineTo(point.X + pathLength, point.Y + pathLength);
 
-        this.context.moveTo(point.X - 5, point.Y + 5);
-        this.context.lineTo(point.X + 5, point.Y - 5);
+        this.context.moveTo(point.X - pathLength, point.Y + pathLength);
+        this.context.lineTo(point.X + pathLength, point.Y - pathLength);
 
-        this.context.lineWidth = 2;
-        this.context.strokeStyle = 'orange';
+        this.context.lineWidth = 5;
+        this.context.strokeStyle = 'lime';
         this.context.stroke();
     }
 
