@@ -18,7 +18,7 @@
     </div>
 
     <div class="performance">
-      <div id="title">
+      <div class="title">
         <h4>
           Performance
         </h4>
@@ -49,8 +49,15 @@
     </div>
 
     <div class="logs">
-      <h4>Logs</h4>
-      <mat-list>
+      <div class="title">
+        <h4>
+          Performance
+        </h4>
+        <mat-icon aria-hidden="false" aria-label="Info" (click)="toggleLogs()">
+          {{logsShown ? 'expand_less' : 'expand_more'}}
+        </mat-icon>
+      </div>
+      <mat-list *ngIf="logsShown">
         <mat-list-item *ngFor="let item of debuggerService.logs">
           <mat-icon *ngIf="item.level === LogLevel.Warning" class="level-icon warning">warning</mat-icon>
           <mat-icon *ngIf="item.level === LogLevel.Error" class="level-icon error">error</mat-icon>

@@ -14,6 +14,8 @@ export class DebuggerComponent implements OnInit {
 
   public LogLevel = LogLevel;
 
+  logsShown = false;
+
   selected: PolygonModel;
   polygons: PolygonModel[] = [];
 
@@ -36,6 +38,10 @@ export class DebuggerComponent implements OnInit {
       isComplete: true
     });
 
+  }
+
+  toggleLogs(): void {
+    this.logsShown = !this.logsShown;
   }
 
   loadPolygon(polygon: PolygonModel): void {
