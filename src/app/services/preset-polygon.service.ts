@@ -3,7 +3,7 @@ import { PolygonModel } from "../models/polygon.model";
 import { VertexModel } from "../models/vertex.model";
 import { PRESET_POLYGONS, PRESET_POLYGONS_MAX_VALUE } from "../constants/polygon-map";
 import { DebuggerService } from "./debugger.service";
-import { multicast, skipWhile } from "rxjs/operators";
+import { filter, first, map, retryWhen, skipWhile } from "rxjs/operators";
 import { RenderService } from "./render.service";
 import { StateService } from "./state.service";
 import { PointModel } from "../models/point.model";
@@ -30,11 +30,15 @@ export class PresetPolygonService {
             return;
         }
 
-        this.renderService.ready.pipe(
-            skipWhile(rs => !rs)
-        ).subscribe(() => {
-            this.drawPolygon(selectedPolygon.name, selectedPolygon.vertices, selectedPolygon.point);
-        })
+        if (!this.renderService.isInitialized()) {
+            this.renderService.ready.pipe(
+                skipWhile(ready => !ready),
+            ).subscribe(() => {
+                this.drawPolygon(selectedPolygon.name, selectedPolygon.vertices, selectedPolygon.point);
+            });
+            return;
+        }
+        this.drawPolygon(selectedPolygon.name, selectedPolygon.vertices, selectedPolygon.point);
     }
 
     private drawPolygon(name: string, vertices: VertexModel[], point?: PointModel): void {
@@ -46,10 +50,12 @@ export class PresetPolygonService {
         vertices.forEach(vertex =>
             polygon.vertices.push({ ...vertex, X: this.toScreenX(vertex.X), Y: this.toScreenY(vertex.Y) }));
 
-        this.state.setPolygon(polygon);
+        // i call an redraw request once the initialization is finished in canvas.component.ts, so we should not
+        // call one here. If I did I would get an ExpressionChangedAfterChecked exception for the redrawTime debug
+        this.state.setPolygonNoRedrawRequest(polygon);
 
         if (point) {
-            this.state.setPoint({ X: this.toScreenX(point.X), Y: this.toScreenY(point.Y) });
+            this.state.setPointNoRedrawRequest({ X: this.toScreenX(point.X), Y: this.toScreenY(point.Y) });
         }
     }
 

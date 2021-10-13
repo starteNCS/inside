@@ -13,7 +13,7 @@ export const PRESET_POLYGONS = new Map<string, PresetPolygonModel>([
             { X: 8, Y: 8, positionInPolygon: 2 },
             { X: 2, Y: 8, positionInPolygon: 3 },
         ],
-        undefined
+        { X: 100, Y: 100 }
     )
     ]
 ])

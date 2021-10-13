@@ -25,6 +25,10 @@ export class StateService {
         this.redrawRequest = this.redrawRequestSubject.asObservable();
     }
 
+    public requestRedraw(): void {
+        this.redrawRequestSubject.next();
+    }
+
     public reset() {
         this.polygon = undefined;
         this.point = undefined;
@@ -59,9 +63,16 @@ export class StateService {
         })
     }
 
-    public setPolygon(polygon: PolygonModel): void {
+    public canCalculate(): boolean {
+        if (!this.polygon) {
+            return false;
+        }
+
+        return this.polygon.vertices.length > 2 && this.point !== undefined;
+    }
+
+    public setPolygonNoRedrawRequest(polygon: PolygonModel): void {
         this.polygon = polygon;
-        this.redrawRequestSubject.next();
     }
 
     public addVertexToPolygon(vertex: VertexModel): void {
@@ -71,6 +82,10 @@ export class StateService {
         const vertices = [...this.polygon.vertices, vertex];
         this.polygon = { ...this.polygon, vertices, isComplete: vertices.length >= 3 };
         this.redrawRequestSubject.next();
+    }
+
+    public setPointNoRedrawRequest(point: PointModel): void {
+        this.point = point;
     }
 
     public setPoint(point: PointModel): void {

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
 import { VectorRay } from "../pip/vector/vector-ray";
@@ -21,7 +21,7 @@ export class RenderService {
     private initialized: boolean;
     private redrawRequestedInInitialization: boolean;
 
-    private readySubject = new Subject<boolean>();
+    private readySubject = new BehaviorSubject<boolean>(false);
     public ready: Observable<boolean>;
 
     constructor(
@@ -107,9 +107,6 @@ export class RenderService {
         this.debuggerState.setRedrawTime(t2 - t1);
     }
 
-    public getSize(): [width: number, height: number] {
-        return [this.width, this.height];
-    }
 
     public drawRay(ray: VectorRay): void {
         if (!this.initialized) {
@@ -186,6 +183,14 @@ export class RenderService {
         this.context.lineWidth = 2;
         this.context.strokeStyle = 'white';
         this.context.stroke();
+    }
+
+    public getSize(): [width: number, height: number] {
+        return [this.width, this.height];
+    }
+
+    public isInitialized(): boolean {
+        return this.initialized;
     }
 
 }

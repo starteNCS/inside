@@ -7,13 +7,13 @@
       <h4>Polygon</h4>
       <div class="polygon-loader">
         <div>
-          <mat-select placeholder="Load a predefined Polygon" [(value)]="selected">
-            <mat-option *ngFor="let polygon of polygons" [value]="polygon">
-              {{polygon.name}}
+          <mat-select placeholder="Load a predefined Polygon" [(value)]="selectedId">
+            <mat-option *ngFor="let polygon of polygons" [value]="polygon.key">
+              {{polygon.value}}
             </mat-option>
           </mat-select>
         </div>
-        <button mat-raised-button color="primary" (click)="loadPolygon(selected)">Load</button>
+        <button mat-raised-button color="primary" (click)="loadPolygon(selectedId)">Load</button>
       </div>
       <div class="polygon-reset">
         <button mat-raised-button color="primary" (click)="reset()">

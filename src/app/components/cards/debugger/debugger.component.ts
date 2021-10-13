@@ -1,9 +1,10 @@
+import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PRESET_POLYGONS } from 'src/app/constants/polygon-map';
 import { LogLevel } from 'src/app/models/enums/log-level.enum';
-import { PolygonModel } from 'src/app/models/polygon.model';
 import { DebuggerStateService } from 'src/app/services/debugger-state.service';
 import { DebuggerService } from 'src/app/services/debugger.service';
-import { PolygonService } from 'src/app/services/polygon.service';
 import { RaycastService } from 'src/app/services/raycast.service';
 import { StateService } from 'src/app/services/state.service';
 
@@ -16,8 +17,8 @@ export class DebuggerComponent implements OnInit {
 
   public LogLevel = LogLevel;
 
-  selected: PolygonModel;
-  polygons: PolygonModel[] = [];
+  selectedId: string;
+  polygons: KeyValue<string, string>[] = [];
 
   isSimulationRunning = false;
 
@@ -27,40 +28,24 @@ export class DebuggerComponent implements OnInit {
   constructor(
     public debuggerService: DebuggerService,
     public debuggerState: DebuggerStateService,
-    private readonly polygonService: PolygonService,
     private readonly state: StateService,
-    private readonly raycastService: RaycastService) { }
+    private readonly raycastService: RaycastService,
+    private readonly router: Router) { }
 
   ngOnInit() {
 
-    this.polygons.push({
-      name: 'Square',
-      vertices: [
-        { X: 500, Y: 200, positionInPolygon: 0 },
-        { X: 500, Y: 400, positionInPolygon: 1 },
-        { X: 700, Y: 400, positionInPolygon: 2 },
-        { X: 700, Y: 200, positionInPolygon: 3 }
-      ],
-      isComplete: true
+    this.polygons = [...PRESET_POLYGONS.values()].map(polygon => {
+      return { key: polygon.id, value: polygon.name }
     });
 
   }
 
-  loadPolygon(polygon: PolygonModel): void {
-    if (!polygon || polygon.vertices.length === 0) {
-      return;
-    }
-
-    this.state.reset();
-    polygon.vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon).forEach(vertex => {
-      this.polygonService.addVertexToPolygon(vertex.X, vertex.Y);
-    });
-
-    this.debuggerService.logInfo(`Successfully loaded Polygon: ${polygon.name}`);
+  loadPolygon(id: string): void {
+    this.router.navigateByUrl(id);
   }
 
   reset(): void {
-    this.state.reset();
+    this.router.navigateByUrl('');
   }
 
   startSimulation(): void {
@@ -79,7 +64,6 @@ export class DebuggerComponent implements OnInit {
       }
     }, 10)
   }
-
 
   toggleLogs(): void {
     this.logsShown = !this.logsShown;

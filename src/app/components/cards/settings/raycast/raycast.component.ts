@@ -18,11 +18,9 @@ export class RaycastComponent {
 
   constructor(
     public state: StateService,
-    private readonly raycastService: RaycastService,
-    private readonly renderService: RenderService) { }
+    private readonly raycastService: RaycastService) { }
 
   changeDisplaySelectedAngle(changeEvent: MatSliderChange): void {
-    this.renderService.redraw();
     this.raycastService.changeAngle(changeEvent.value as number);
     this.selectedAngle = changeEvent.value as number;
   }
