@@ -61,6 +61,7 @@ export class StateService {
 
     public setPolygon(polygon: PolygonModel): void {
         this.polygon = polygon;
+        this.redrawRequestSubject.next();
     }
 
     public addVertexToPolygon(vertex: VertexModel): void {

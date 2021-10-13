@@ -10,8 +10,6 @@ import { StateService } from './services/state.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'PIP';
-
 
   constructor(
     state: StateService,

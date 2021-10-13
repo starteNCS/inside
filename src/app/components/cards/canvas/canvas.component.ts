@@ -2,13 +2,15 @@ import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild }
 import { PolygonService } from 'src/app/services/polygon.service';
 import { PointService } from 'src/app/services/point.service';
 import { RenderService } from 'src/app/services/render.service';
+import { ActivatedRoute } from '@angular/router';
+import { PresetPolygonService } from 'src/app/services/preset-polygon.service';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent implements AfterViewInit {
+export class CanvasComponent implements AfterViewInit, OnInit {
 
   private context: CanvasRenderingContext2D;
 
@@ -18,7 +20,17 @@ export class CanvasComponent implements AfterViewInit {
   constructor(
     private readonly polygonService: PolygonService,
     private readonly pointService: PointService,
-    private readonly renderService: RenderService) { }
+    private readonly renderService: RenderService,
+    private readonly route: ActivatedRoute,
+    private readonly presetPolygonService: PresetPolygonService) { }
+
+  ngOnInit(): void {
+    const polygonId = this.route.snapshot.paramMap.get('polygonid');
+
+    if (polygonId) {
+      this.presetPolygonService.loadPolygonById(polygonId);
+    }
+  }
 
   ngAfterViewInit(): void {
     this.context = this.canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;

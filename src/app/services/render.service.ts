@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
 import { VectorRay } from "../pip/vector/vector-ray";
@@ -18,25 +19,39 @@ export class RenderService {
     private width: number;
     private height: number;
     private initialized: boolean;
+    private redrawRequestedInInitialization: boolean;
+
+    private readySubject = new Subject<boolean>();
+    public ready: Observable<boolean>;
 
     constructor(
         private readonly state: StateService,
         private readonly debuggerService: DebuggerService,
-        private readonly debuggerState: DebuggerStateService) { }
+        private readonly debuggerState: DebuggerStateService
+    ) {
+        this.ready = this.readySubject.asObservable();
+    }
 
     public initWidthSize(
         canvasContext: CanvasRenderingContext2D,
         width: number,
         height: number
     ): void {
-        this.init(canvasContext);
         this.updateSize(width, height);
+        this.init(canvasContext);
     }
 
     public init(canvasContext: CanvasRenderingContext2D): void {
         this.context = canvasContext;
         this.state.redrawRequest.subscribe(() => this.redraw());
         this.initialized = true;
+        if (this.width && this.height) {
+            this.readySubject.next(true);
+            this.readySubject.complete();
+        }
+        if (this.redrawRequestedInInitialization) {
+            this.redraw();
+        }
     }
 
     public updateSize(width: number, height: number): void {
@@ -48,11 +63,16 @@ export class RenderService {
         this.width = width;
         this.height = height;
         this.state.adjustPositionsToScreensize(ratio);
+
+        if (!this.readySubject.closed) {
+            this.readySubject.next(true);
+            this.readySubject.complete();
+        }
     }
 
     public redraw(): void {
         if (!this.initialized) {
-            this.debuggerService.logError(this.cannotDrawError);
+            this.redrawRequestedInInitialization = true;
             return;
         }
 
@@ -85,6 +105,10 @@ export class RenderService {
         intersections.forEach(intersection => this.drawIntersection(intersection));
         const t2 = performance.now();
         this.debuggerState.setRedrawTime(t2 - t1);
+    }
+
+    public getSize(): [width: number, height: number] {
+        return [this.width, this.height];
     }
 
     public drawRay(ray: VectorRay): void {

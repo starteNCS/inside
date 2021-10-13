@@ -20,6 +20,7 @@ import { SettingsComponent } from './components/cards/settings/settings.componen
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
 import { DebuggerComponent } from './components/cards/debugger/debugger.component';
 import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
+import { PageComponent } from './components/page/page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RaycastComponent } from './components/cards/settings/raycast/raycast.co
     SettingsComponent,
     CanvasComponent,
     DebuggerComponent,
-    RaycastComponent
+    RaycastComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,

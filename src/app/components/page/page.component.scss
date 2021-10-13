@@ -1,0 +1,18 @@
+#page-container {
+    display: flex;
+    padding: 1em;
+
+    app-canvas {
+        flex: 3;
+        padding: .5em;
+    }
+
+    div {
+        padding: .5em;
+        flex: 1;
+
+        app-debugger {
+            margin-top: .25em;
+        }
+    }
+}
