@@ -13,8 +13,14 @@ import { PointModel } from "../models/point.model";
 })
 export class PresetPolygonService {
 
+    private guaranteedSpacing: number = 40;
     private currentMultiplicator: number;
-    private currentSpcaingX: number;
+    private currentMultiplicatorHeight: number;
+    private currentSpacingX: number;
+    private currentSpacingY: number;
+    private currentMaxWidth: number;
+    private currentMaxHeight: number;
+    private currentMaxDimension: number;
 
     constructor(
         private readonly state: StateService,
@@ -44,8 +50,11 @@ export class PresetPolygonService {
     private drawPolygon(name: string, vertices: VertexModel[], point?: PointModel): void {
         vertices = vertices.sort((a, b) => a.positionInPolygon - b.positionInPolygon);
 
+        this.getCurrentMaxSize(vertices);
         this.getCoordinateMultiplicator();
         this.getSpacingX();
+        this.getSpacingY();
+
         let polygon: PolygonModel = { name, isComplete: true, vertices: [] };
         vertices.forEach(vertex =>
             polygon.vertices.push({ ...vertex, X: this.toScreenX(vertex.X), Y: this.toScreenY(vertex.Y) }));
@@ -60,25 +69,37 @@ export class PresetPolygonService {
     }
 
     private toScreenX(x: number): number {
-        return (x * this.currentMultiplicator) + this.currentSpcaingX;
+        return (x * this.currentMultiplicator) + this.currentSpacingX;
     }
 
-    // since tikz begins at the bottom left and canvas at the top left side, i revert the Y Axis to unify
-    // the tikz and canvas coordinates
     private toScreenY(y: number): number {
-        return (PRESET_POLYGONS_MAX_VALUE - y) * this.currentMultiplicator;
+        // since tikz begins at the bottom left and canvas at the top left side, i revert the Y Axis to unify
+        // the tikz and canvas coordinates
+        const x = 0;
+        return ((this.currentMaxHeight - y) * this.currentMultiplicator) + this.currentSpacingY;
+    }
+
+    private getCurrentMaxSize(vertices: VertexModel[]): void {
+        this.currentMaxWidth = vertices.reduce((o, n) => n.X > o ? n.X : o, 0);
+        this.currentMaxHeight = vertices.reduce((o, n) => n.Y > o ? n.Y : o, 0);
+        this.currentMaxDimension = Math.max(this.currentMaxWidth, this.currentMaxHeight);
     }
 
     private getCoordinateMultiplicator(): void {
         const size = this.renderService.getSize();
 
-        this.currentMultiplicator = size[1] / PRESET_POLYGONS_MAX_VALUE;
+        this.currentMultiplicator = size[1] / this.currentMaxDimension - (this.guaranteedSpacing / this.currentMaxDimension);
+        this.currentMultiplicatorHeight = size[1] / this.currentMaxDimension - (this.guaranteedSpacing / this.currentMaxHeight);
     }
 
     private getSpacingX(): void {
         const size = this.renderService.getSize();
+        this.currentSpacingX = (size[0] - (this.currentMaxWidth * this.currentMultiplicator)) / 2;
+    }
 
-        this.currentSpcaingX = (size[0] - size[1]) / 2;
+    private getSpacingY(): void {
+        const size = this.renderService.getSize();
+        this.currentSpacingY = (size[1] - (this.currentMaxHeight * this.currentMultiplicator)) / 2
     }
 
 }
