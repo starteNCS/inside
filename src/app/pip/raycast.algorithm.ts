@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { PointModel } from "../models/point.model";
 import { ResultModel } from "../models/result.model";
 import { DebuggerStateService } from "../services/debugger-state.service";
-import { DebuggerService } from "../services/debugger.service";
 import { PolygonService } from "../services/polygon.service";
 import { StateService } from "../services/state.service";
 import { PointInPolygon } from "./point-in-polygon.interface";
@@ -19,16 +18,14 @@ export class RaycastAlgorithm implements PointInPolygon {
     ) {
     }
 
-    public isPointInPolygon(): ResultModel {
+    public isPointInPolygon(): ResultModel | undefined {
         let intersections: PointModel[] = [];
         const vectorRays = this.polygonService.toVectorRays();
         const ray = this.state.getRay();
+        const point = this.state.getPoint();
 
-        if (!ray) {
-            return {
-                pointInsidePolygon: false,
-                intersectionPoints: []
-            };
+        if (!ray || !point) {
+            return undefined;
         }
 
         const t1 = performance.now();

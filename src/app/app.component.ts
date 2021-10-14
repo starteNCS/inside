@@ -28,6 +28,10 @@ export class AppComponent {
         state.clearIntersections();
         const result = raycastAlgorithm.isPointInPolygon();
 
+        if (!result) {
+          return;
+        }
+
         state.isInPolygonRaycast = result.pointInsidePolygon ? InPolygonResult.InPolygon : InPolygonResult.NotInPolygon;
         result.intersectionPoints.forEach(intersection => {
           state.addIntersectionNoRedrawRequest(intersection);
