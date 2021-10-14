@@ -22,6 +22,8 @@ export class PresetPolygonService {
     private currentMaxHeight: number;
     private currentMaxDimension: number;
 
+    public performedActionsCount = 0;
+
     constructor(
         private readonly state: StateService,
         private readonly debuggerService: DebuggerService,
@@ -67,9 +69,11 @@ export class PresetPolygonService {
             this.state.setPointNoRedrawRequest({ X: this.toScreenX(point.X), Y: this.toScreenY(point.Y) });
         }
 
-        if (this.renderService.isInitialized()) {
+        if (this.performedActionsCount != 0) {
             this.state.requestRedraw();
         }
+
+        this.performedActionsCount++;
     }
 
     private toScreenX(x: number): number {

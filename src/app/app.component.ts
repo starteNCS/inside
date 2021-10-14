@@ -50,6 +50,7 @@ export class AppComponent {
           this.presetPolygonService.loadPolygonById(polygonId);
         } else {
           this.stateService.reset();
+          this.presetPolygonService.performedActionsCount++;
         }
       });
   }
