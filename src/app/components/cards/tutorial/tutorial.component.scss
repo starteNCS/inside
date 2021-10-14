@@ -1,0 +1,16 @@
+mat-card {
+    margin-top: .25em;
+}
+
+.tut-text {
+    display: flex;
+    margin: 0.5em 0;
+    
+    p{
+        margin: auto 0em auto .125em;
+    }
+
+    mat-icon {
+        cursor: pointer;
+    }
+}

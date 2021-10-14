@@ -3,9 +3,12 @@
 </mat-toolbar>
 
 <div id="page-container">
-  <app-canvas class="page-card"></app-canvas>
+  <div class="left">
+    <app-canvas class="page-card"></app-canvas>
+    <app-tutorial></app-tutorial>
+  </div>
 
-  <div>
+  <div class="right">
     <app-settings class="page-card"></app-settings>
     <app-debugger></app-debugger>
   </div>

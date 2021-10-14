@@ -2,17 +2,13 @@
     display: flex;
     padding: 1em;
 
-    app-canvas {
+    .left {
         flex: 3;
         padding: .5em;
     }
 
-    div {
+    .right {
         padding: .5em;
         flex: 1;
-
-        app-debugger {
-            margin-top: .25em;
-        }
     }
 }

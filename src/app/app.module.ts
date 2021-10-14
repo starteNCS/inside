@@ -21,6 +21,7 @@ import { CanvasComponent } from './components/cards/canvas/canvas.component';
 import { DebuggerComponent } from './components/cards/debugger/debugger.component';
 import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
 import { PageComponent } from './components/page/page.component';
+import { TutorialComponent } from './components/cards/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PageComponent } from './components/page/page.component';
     CanvasComponent,
     DebuggerComponent,
     RaycastComponent,
+    TutorialComponent,
     PageComponent
   ],
   imports: [
