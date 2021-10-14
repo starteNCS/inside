@@ -2,15 +2,20 @@ mat-card {
     margin-top: .25em;
 }
 
-.tut-text {
+.keybinds {
     display: flex;
-    margin: 0.5em 0;
+    margin: .5em 0em;
     
-    p{
-        margin: auto 0em auto .125em;
-    }
-
-    mat-icon {
-        cursor: pointer;
+    .tut-text {
+        display: flex;
+        margin-right: 1em;
+        
+        p{
+            margin: auto 0em auto .125em;
+        }
+    
+        mat-icon {
+            cursor: pointer;
+        }
     }
 }

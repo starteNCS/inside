@@ -89,7 +89,10 @@ export class RenderService {
                 );
             }
         });
-        vertices.forEach(vertex => this.drawVertex(vertex));
+        const maxPosition = vertices.reduce((o, n) => n.positionInPolygon > o ? n.positionInPolygon : o, 0);
+        vertices.forEach(vertex => {
+            this.drawVertex(vertex, vertex.positionInPolygon == maxPosition);
+        });
 
         const point = this.state.getPoint();
         if (point) {
@@ -137,7 +140,7 @@ export class RenderService {
         this.context.stroke();
     }
 
-    public drawVertex(vertex: VertexModel): void {
+    public drawVertex(vertex: VertexModel, isLast: boolean = false): void {
         if (!this.initialized) {
             this.debuggerService.logError(this.cannotDrawError);
             return;
@@ -145,7 +148,7 @@ export class RenderService {
 
         this.context.beginPath();
         this.context.arc(vertex.X, vertex.Y, 10, 0, 2 * Math.PI);
-        this.context.fillStyle = 'red';
+        this.context.fillStyle = !isLast ? 'red' : 'orange';
         this.context.fill();
         this.context.lineWidth = 2;
         this.context.strokeStyle = 'white';
