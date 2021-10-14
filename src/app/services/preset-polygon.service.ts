@@ -66,6 +66,10 @@ export class PresetPolygonService {
         if (point) {
             this.state.setPointNoRedrawRequest({ X: this.toScreenX(point.X), Y: this.toScreenY(point.Y) });
         }
+
+        if (this.renderService.isInitialized()) {
+            this.state.requestRedraw();
+        }
     }
 
     private toScreenX(x: number): number {

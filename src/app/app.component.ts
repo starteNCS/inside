@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { PageComponent } from './components/page/page.component';
 import { InPolygonResult } from './models/enums/in-polygon-result.enum';
 import { RaycastAlgorithm } from './pip/raycast.algorithm';
@@ -17,8 +19,9 @@ export class AppComponent {
     state: StateService,
     renderService: RenderService,
     raycastAlgorithm: RaycastAlgorithm,
+    router: Router,
     private readonly presetPolygonService: PresetPolygonService,
-    private readonly stateService: StateService
+    private readonly stateService: StateService,
   ) {
     state.redrawRequest.subscribe(() => {
       if (state.canCalculate()) {
@@ -33,15 +36,17 @@ export class AppComponent {
         renderService.redraw();
       }
     });
-  }
 
-  loadPolygon(event: PageComponent) {
-    const polygonId = event.route.snapshot.paramMap.get('polygonid');
+    router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        const polygonId = e.urlAfterRedirects.split('/')[1];
 
-    if (polygonId) {
-      this.presetPolygonService.loadPolygonById(polygonId);
-    } else {
-      this.stateService.reset();
-    }
+        if (polygonId) {
+          this.presetPolygonService.loadPolygonById(polygonId);
+        } else {
+          this.stateService.reset();
+        }
+      });
   }
 }
