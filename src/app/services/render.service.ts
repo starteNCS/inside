@@ -119,7 +119,7 @@ export class RenderService {
 
         this.context.beginPath();
         this.context.moveTo(ray.location.X, ray.location.Y);
-        this.context.lineTo(ray.location.X + 10000 * ray.dirction.X, ray.location.Y + 10000 * ray.dirction.Y);
+        this.context.lineTo(ray.location.X + 10000 * ray.direction.X, ray.location.Y + 10000 * ray.direction.Y);
         this.context.lineWidth = 2;
         this.context.strokeStyle = 'white';
         this.context.stroke();

@@ -53,8 +53,8 @@ export class StateService {
             this.ray.location.X *= ratio;
             this.ray.location.Y *= ratio;
 
-            this.ray.dirction.X *= ratio;
-            this.ray.dirction.Y *= ratio;
+            this.ray.direction.X *= ratio;
+            this.ray.direction.Y *= ratio;
         }
 
         this.intersections.forEach(point => {

@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { PageComponent } from './components/page/page.component';
 import { InPolygonResult } from './models/enums/in-polygon-result.enum';
 import { RaycastAlgorithm } from './pip/raycast.algorithm';
+import { WindingNumberAlgorithm } from './pip/winding-number.algorithm';
 import { PresetPolygonService } from './services/preset-polygon.service';
 import { RenderService } from './services/render.service';
 import { StateService } from './services/state.service';
@@ -19,6 +20,7 @@ export class AppComponent {
     state: StateService,
     renderService: RenderService,
     raycastAlgorithm: RaycastAlgorithm,
+    windingNumberAlgorithm: WindingNumberAlgorithm,
     router: Router,
     private readonly presetPolygonService: PresetPolygonService,
     private readonly stateService: StateService,
@@ -26,7 +28,7 @@ export class AppComponent {
     state.redrawRequest.subscribe(() => {
       if (state.canCalculate()) {
         state.clearIntersections();
-        const result = raycastAlgorithm.isPointInPolygon();
+        const result = windingNumberAlgorithm.isPointInPolygon();
 
         if (!result) {
           return;
