@@ -35,9 +35,14 @@ export class WindingNumberAlgorithm implements PointInPolygon {
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
             if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
-                windingNumber += vectorRay.getDirection()!;
+                const windingValue = vectorRay.getDirection()!;
+                windingNumber += windingValue;
                 const intersection = ray.getIntersectionPoint(vectorRay, multiples)!;
-                intersections.push(intersection);
+                intersections.push({
+                    X: intersection.X,
+                    Y: intersection.Y,
+                    text: windingValue === 1 ? 'up' : 'down'
+                });
             }
         })
 

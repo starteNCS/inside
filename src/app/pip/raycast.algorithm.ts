@@ -33,7 +33,11 @@ export class RaycastAlgorithm implements PointInPolygon {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
             if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
                 const intersection = ray.getIntersectionPoint(vectorRay, multiples)!;
-                intersections.push(intersection);
+                intersections.push({
+                    X: intersection.X,
+                    Y: intersection.Y,
+                    text: (intersections.length + 1).toString()
+                });
             }
         });
         const t2 = performance.now();

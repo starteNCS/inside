@@ -181,6 +181,11 @@ export class RenderService {
         this.context.lineWidth = 5;
         this.context.strokeStyle = 'lime';
         this.context.stroke();
+
+        if (point.text) {
+            this.context.font = '20px Arial';
+            this.context.fillText(point.text, point.X + 10, point.Y + 15);
+        }
     }
 
     public drawEdge(fromVertex: VertexModel, toVertex: VertexModel): void {
