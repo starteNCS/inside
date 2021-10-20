@@ -182,7 +182,7 @@ export class RenderService {
         this.context.strokeStyle = 'lime';
         this.context.stroke();
 
-        if (point.text) {
+        if (point.text && this.state.getDisplayDebugger()) {
             this.context.font = '20px Arial';
             this.context.fillText(point.text, point.X + 10, point.Y + 15);
         }

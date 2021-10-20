@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Algorithm } from "../models/enums/algorithm.enum";
 import { PointModel } from "../models/point.model";
 import { ResultModel } from "../models/result.model";
 import { DebuggerStateService } from "../services/debugger-state.service";
@@ -30,8 +31,8 @@ export class WindingNumberAlgorithm implements PointInPolygon {
             return undefined;
         }
 
+        const t1 = performance.now();
         const ray = new VectorRay(new Vector2(point.X, point.Y), new Vector2(1, 0));
-
         vectorRays.forEach(vectorRay => {
             const multiples = ray.getMultiplesOfDirectionVectorsForIntersection(vectorRay);
             if (multiples[1] >= 0 && multiples[1] <= 1 && multiples[0] >= 0) {
@@ -44,7 +45,9 @@ export class WindingNumberAlgorithm implements PointInPolygon {
                     text: windingValue === 1 ? 'up' : 'down'
                 });
             }
-        })
+        });
+        const t2 = performance.now();
+        this.debuggerState.setAlgorithmTime(Algorithm.WindingNumber, t2 - t1);
 
         return {
             intersectionPoints: intersections,

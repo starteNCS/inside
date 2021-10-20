@@ -2,6 +2,7 @@ import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PRESET_POLYGONS } from 'src/app/constants/polygon-map';
+import { Algorithm } from 'src/app/models/enums/algorithm.enum';
 import { LogLevel } from 'src/app/models/enums/log-level.enum';
 import { DebuggerStateService } from 'src/app/services/debugger-state.service';
 import { DebuggerService } from 'src/app/services/debugger.service';
@@ -16,6 +17,7 @@ import { StateService } from 'src/app/services/state.service';
 export class DebuggerComponent implements OnInit {
 
   public LogLevel = LogLevel;
+  public algorithm = Algorithm;
 
   selectedId: string;
   polygons: KeyValue<string, string>[] = [];

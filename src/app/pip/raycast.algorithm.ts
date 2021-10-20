@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Algorithm } from "../models/enums/algorithm.enum";
 import { PointModel } from "../models/point.model";
 import { ResultModel } from "../models/result.model";
 import { DebuggerStateService } from "../services/debugger-state.service";
@@ -41,7 +42,7 @@ export class RaycastAlgorithm implements PointInPolygon {
             }
         });
         const t2 = performance.now();
-        this.debuggerState.setAlgorithmTime(t2 - t1);
+        this.debuggerState.setAlgorithmTime(Algorithm.Raycast, t2 - t1);
 
         return {
             pointInsidePolygon: intersections.length % 2 != 0,
