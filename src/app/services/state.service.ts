@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { Algorithm } from "../models/enums/algorithm.enum";
 import { InPolygonResult } from "../models/enums/in-polygon-result.enum";
 import { PointModel } from "../models/point.model";
 import { PolygonModel } from "../models/polygon.model";
@@ -16,6 +17,7 @@ export class StateService {
     private ray: VectorRay | undefined;
     private intersections: PointModel[] = [];
 
+    public currentAlgorithm = Algorithm.WindingNumber;
     public isInPolygonRaycast = InPolygonResult.NotCalculated;
 
     private redrawRequestSubject = new Subject<void>();
@@ -107,6 +109,12 @@ export class StateService {
         this.intersections.push(intersection);
     }
 
+    public setAlgorithm(algorithm: Algorithm): void {
+        this.currentAlgorithm = algorithm;
+        console.log(this.currentAlgorithm)
+        this.redrawRequestSubject.next();
+    }
+
     public clearIntersections(): void {
         this.intersections = [];
     }
@@ -125,5 +133,9 @@ export class StateService {
 
     public getIntersections(): PointModel[] {
         return this.intersections;
+    }
+
+    public getAlgorithm(): Algorithm {
+        return this.currentAlgorithm;
     }
 }

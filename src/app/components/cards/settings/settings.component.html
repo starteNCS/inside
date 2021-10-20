@@ -1,5 +1,6 @@
 <mat-card>
-    <mat-tab-group animationDuration="0ms">
+    <mat-tab-group animationDuration="0ms" [selectedIndex]="state.currentAlgorithm.valueOf()"
+        (selectedIndexChange)="change($event)">
         <mat-tab label="Raycast">
             <app-raycast></app-raycast>
         </mat-tab>
