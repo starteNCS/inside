@@ -35,5 +35,20 @@ export const PRESET_POLYGONS = new Map<string, PresetPolygonModel>([
             ],
             undefined
         )
+    ],
+    [
+        'star',
+        new PresetPolygonModel(
+            'star',
+            'Komplexes Polygon Stern',
+            [
+                { X: 1, Y: 0, positionInPolygon: 0 },
+                { X: 2.5, Y: 5, positionInPolygon: 1 },
+                { X: 4, Y: 0, positionInPolygon: 2 },
+                { X: 0, Y: 3, positionInPolygon: 3 },
+                { X: 5, Y: 3, positionInPolygon: 4 },
+            ],
+            undefined
+        )
     ]
 ])
