@@ -20,6 +20,8 @@ export class RaycastService {
     }
 
     public changeAngle(angle: number): void {
+        // i want the ray to point towards the right
+        angle = angle + 180;
         const radiants = ((angle % 360) * (Math.PI / 180)) - Math.PI;
         this.angleSubject.next(angle % 360);
 
