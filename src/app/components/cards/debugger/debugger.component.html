@@ -22,6 +22,19 @@
       </div>
     </div>
 
+    <div class="display-debug-in-canvas">
+      <div class="title">
+        <h4>
+          Debugger
+        </h4>
+      </div>
+      <div>
+        <mat-slide-toggle [checked]="state.getDisplayDebugger()" (toggleChange)="state.toggleDebuggerDisplay()"
+          color="primary">
+          Display Debug in Canvas
+        </mat-slide-toggle>
+      </div>
+    </div>
     <div class="performance">
       <div class="title">
         <h4>

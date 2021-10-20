@@ -16,6 +16,7 @@ export class StateService {
     private point: PointModel | undefined;
     private ray: VectorRay | undefined;
     private intersections: PointModel[] = [];
+    private displayDebugger = false;
 
     public currentAlgorithm = Algorithm.WindingNumber;
     public isPointInPolygon = new Map<Algorithm, InPolygonResult>();
@@ -115,6 +116,11 @@ export class StateService {
         this.redrawRequestSubject.next();
     }
 
+    public toggleDebuggerDisplay(): void {
+        this.displayDebugger = !this.displayDebugger;
+        this.redrawRequestSubject.next();
+    }
+
     public clearIntersections(): void {
         this.intersections = [];
     }
@@ -137,5 +143,9 @@ export class StateService {
 
     public getAlgorithm(): Algorithm {
         return this.currentAlgorithm;
+    }
+
+    public getDisplayDebugger(): boolean {
+        return this.displayDebugger;
     }
 }

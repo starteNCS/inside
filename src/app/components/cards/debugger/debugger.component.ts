@@ -28,7 +28,7 @@ export class DebuggerComponent implements OnInit {
   constructor(
     public debuggerService: DebuggerService,
     public debuggerState: DebuggerStateService,
-    private readonly state: StateService,
+    public state: StateService,
     private readonly raycastService: RaycastService,
     private readonly router: Router) { }
 
