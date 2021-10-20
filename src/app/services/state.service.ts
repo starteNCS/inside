@@ -18,7 +18,7 @@ export class StateService {
     private intersections: PointModel[] = [];
     private displayDebugger = false;
 
-    public currentAlgorithm = Algorithm.WindingNumber;
+    public currentAlgorithm = Algorithm.Raycast;
     public isPointInPolygon = new Map<Algorithm, InPolygonResult>();
 
     private redrawRequestSubject = new Subject<void>();
