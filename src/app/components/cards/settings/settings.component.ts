@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Algorithm } from 'src/app/models/enums/algorithm.enum';
 import { StateService } from 'src/app/services/state.service';
 

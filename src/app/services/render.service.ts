@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { Algorithm } from "../models/enums/algorithm.enum";
 import { PointModel } from "../models/point.model";
 import { VertexModel } from "../models/vertex.model";
+import { Vector2 } from "../pip/vector/vector";
 import { VectorRay } from "../pip/vector/vector-ray";
 import { DebuggerStateService } from "./debugger-state.service";
 import { DebuggerService } from "./debugger.service";
@@ -99,8 +101,15 @@ export class RenderService {
             this.drawPoint(point);
         }
 
-        const ray = this.state.getRay();
-        if (ray) {
+        if (this.state.currentAlgorithm === Algorithm.Raycast) {
+            const ray = this.state.getRay();
+            if (ray) {
+                this.drawRay(ray);
+            }
+        }
+
+        if (this.state.currentAlgorithm === Algorithm.WindingNumber && point) {
+            const ray = new VectorRay(new Vector2(point?.X, point.Y), new Vector2(1, 0));
             this.drawRay(ray);
         }
 
