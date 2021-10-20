@@ -17,6 +17,7 @@ export class StateService {
     private ray: VectorRay | undefined;
     private intersections: PointModel[] = [];
     private displayDebugger = false;
+    public becauseText = new Map<Algorithm, string>();
 
     public currentAlgorithm = Algorithm.Raycast;
     public isPointInPolygon = new Map<Algorithm, InPolygonResult>();
@@ -38,6 +39,7 @@ export class StateService {
         this.ray = undefined;
         this.intersections = [];
         this.isPointInPolygon = new Map<Algorithm, InPolygonResult>();
+        this.becauseText = new Map<Algorithm, string>();
         this.redrawRequestSubject.next();
     }
 
@@ -112,8 +114,11 @@ export class StateService {
 
     public setAlgorithm(algorithm: Algorithm): void {
         this.currentAlgorithm = algorithm;
-        console.log(this.currentAlgorithm)
         this.redrawRequestSubject.next();
+    }
+
+    public setBecauseText(algorithm: Algorithm, text: string): void {
+        this.becauseText.set(algorithm, text);
     }
 
     public toggleDebuggerDisplay(): void {
@@ -147,5 +152,9 @@ export class StateService {
 
     public getDisplayDebugger(): boolean {
         return this.displayDebugger;
+    }
+
+    public getBecauseText(algorithm: Algorithm): string | undefined {
+        return this.becauseText.get(algorithm);
     }
 }

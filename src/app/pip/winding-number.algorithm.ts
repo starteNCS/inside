@@ -49,9 +49,13 @@ export class WindingNumberAlgorithm implements PointInPolygon {
         const t2 = performance.now();
         this.debuggerState.setAlgorithmTime(Algorithm.WindingNumber, t2 - t1);
 
+        const pointInsidePolygon = windingNumber !== 0;
+        const becauseText = `The winding number is ${windingNumber}. Since this number ${pointInsidePolygon ? 'is not' : 'is'} equal to zero, the point is ${pointInsidePolygon ? 'inside' : 'outside'} of the polygon.`;
+
         return {
             intersectionPoints: intersections,
-            pointInsidePolygon: windingNumber !== 0
+            pointInsidePolygon,
+            becauseText
         };
     }
 

@@ -14,7 +14,7 @@ export class InPolygonComponent {
 
   @Input() algorithm: Algorithm;
 
-  constructor(private readonly state: StateService) { }
+  constructor(public state: StateService) { }
 
   isPointInPolygon(): InPolygonResult {
     return this.state.isPointInPolygon.get(this.algorithm) ?? InPolygonResult.NotCalculated;

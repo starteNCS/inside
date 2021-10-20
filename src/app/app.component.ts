@@ -50,6 +50,7 @@ export class AppComponent {
         result.intersectionPoints.forEach(intersection => {
           state.addIntersectionNoRedrawRequest(intersection);
         });
+        state.setBecauseText(state.getAlgorithm(), result.becauseText);
 
         renderService.redraw();
       }

@@ -44,8 +44,13 @@ export class RaycastAlgorithm implements PointInPolygon {
         const t2 = performance.now();
         this.debuggerState.setAlgorithmTime(Algorithm.Raycast, t2 - t1);
 
+        const intersectionCount = intersections.length;
+        const pointInsidePolygon = intersectionCount % 2 != 0;
+        const becauseText = `Ray intersected polygon ${intersectionCount} time${intersectionCount > 1 ? 's' : ''}. Since this is a ${pointInsidePolygon ? 'odd' : 'even'} number, the point is ${pointInsidePolygon ? 'inside' : 'outside'} the polygon.`;
+
         return {
-            pointInsidePolygon: intersections.length % 2 != 0,
+            pointInsidePolygon,
+            becauseText,
             intersectionPoints: intersections
         };
     }
