@@ -18,7 +18,7 @@ export class StateService {
     private intersections: PointModel[] = [];
 
     public currentAlgorithm = Algorithm.WindingNumber;
-    public isInPolygonRaycast = InPolygonResult.NotCalculated;
+    public isPointInPolygon = new Map<Algorithm, InPolygonResult>();
 
     private redrawRequestSubject = new Subject<void>();
     public redrawRequest: Observable<void>;
@@ -36,7 +36,7 @@ export class StateService {
         this.point = undefined;
         this.ray = undefined;
         this.intersections = [];
-        this.isInPolygonRaycast = InPolygonResult.NotCalculated;
+        this.isPointInPolygon = new Map<Algorithm, InPolygonResult>();
         this.redrawRequestSubject.next();
     }
 

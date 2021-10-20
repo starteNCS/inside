@@ -22,6 +22,8 @@ import { DebuggerComponent } from './components/cards/debugger/debugger.componen
 import { RaycastComponent } from './components/cards/settings/raycast/raycast.component';
 import { PageComponent } from './components/page/page.component';
 import { TutorialComponent } from './components/cards/tutorial/tutorial.component';
+import { InPolygonComponent } from './components/cards/settings/in-polygon/in-polygon.component';
+import { WindingNumberComponent } from './components/cards/settings/winding-number/winding-number.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,10 @@ import { TutorialComponent } from './components/cards/tutorial/tutorial.componen
     CanvasComponent,
     DebuggerComponent,
     RaycastComponent,
+    InPolygonComponent,
     TutorialComponent,
-    PageComponent
+    PageComponent,
+    WindingNumberComponent
   ],
   imports: [
     BrowserModule,

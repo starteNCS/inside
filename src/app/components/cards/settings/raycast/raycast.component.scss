@@ -10,26 +10,3 @@
     }
 }
 
-.result {
-    width: 90%;
-    height: 2.5em;
-    margin: 0em auto;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: .5em;
-}
-
-.in-polygon {
-    background-color: #69f0ae;
-}
-
-.not-in-polygon {
-    background-color: #f44336;
-}
-
-.not-calculated {
-    background-color: #d3d3d3;
-    color: #0e0e0e;
-}

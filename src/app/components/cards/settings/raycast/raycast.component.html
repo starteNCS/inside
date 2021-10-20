@@ -8,12 +8,4 @@
     </div>
 </div>
 
-<div class="result" [ngClass]="{
-    'in-polygon': state.isInPolygonRaycast === inPolygonResult.InPolygon,
-    'not-in-polygon': state.isInPolygonRaycast === inPolygonResult.NotInPolygon,
-    'not-calculated': state.isInPolygonRaycast === inPolygonResult.NotCalculated
-}">
-    <h4 *ngIf="state.isInPolygonRaycast === inPolygonResult.InPolygon">Point is in Polygon</h4>
-    <h4 *ngIf="state.isInPolygonRaycast === inPolygonResult.NotInPolygon">Point is not in Polygon</h4>
-    <h4 *ngIf="state.isInPolygonRaycast === inPolygonResult.NotCalculated">No data to calculate</h4>
-</div>
+<app-in-polygon [algorithm]="algorithm.Raycast"></app-in-polygon>

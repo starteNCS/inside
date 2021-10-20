@@ -1,0 +1,9 @@
+<div class="result" [ngClass]="{
+  'in-polygon': isPointInPolygon() === inPolygonResult.InPolygon,
+  'not-in-polygon': isPointInPolygon() === inPolygonResult.NotInPolygon,
+  'not-calculated': isPointInPolygon() === inPolygonResult.NotCalculated
+}">
+  <h4 *ngIf="isPointInPolygon() === inPolygonResult.InPolygon">Point is in Polygon</h4>
+  <h4 *ngIf="isPointInPolygon() === inPolygonResult.NotInPolygon">Point is not in Polygon</h4>
+  <h4 *ngIf="isPointInPolygon() === inPolygonResult.NotCalculated">No data to calculate</h4>
+</div>

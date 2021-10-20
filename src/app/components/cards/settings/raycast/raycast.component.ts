@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
-import { InPolygonResult } from 'src/app/models/enums/in-polygon-result.enum';
+import { Algorithm } from 'src/app/models/enums/algorithm.enum';
 import { RaycastService } from 'src/app/services/raycast.service';
-import { RenderService } from 'src/app/services/render.service';
 import { StateService } from 'src/app/services/state.service';
 
 @Component({
@@ -14,11 +13,12 @@ export class RaycastComponent {
 
   selectedAngle = 0;
 
-  inPolygonResult = InPolygonResult;
+  algorithm = Algorithm;
 
   constructor(
     public state: StateService,
-    private readonly raycastService: RaycastService) { }
+    private readonly raycastService: RaycastService
+  ) { }
 
   changeDisplaySelectedAngle(changeEvent: MatSliderChange): void {
     this.raycastService.changeAngle(changeEvent.value as number);

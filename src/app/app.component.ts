@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { PageComponent } from './components/page/page.component';
+import { Algorithm } from './models/enums/algorithm.enum';
 import { InPolygonResult } from './models/enums/in-polygon-result.enum';
+import { ResultModel } from './models/result.model';
 import { RaycastAlgorithm } from './pip/raycast.algorithm';
 import { WindingNumberAlgorithm } from './pip/winding-number.algorithm';
 import { PresetPolygonService } from './services/preset-polygon.service';
@@ -28,13 +30,23 @@ export class AppComponent {
     state.redrawRequest.subscribe(() => {
       if (state.canCalculate()) {
         state.clearIntersections();
-        const result = windingNumberAlgorithm.isPointInPolygon();
+        let result: ResultModel | undefined;
+        switch (state.getAlgorithm()) {
+          case Algorithm.Raycast:
+            result = raycastAlgorithm.isPointInPolygon();
+            break;
+          case Algorithm.WindingNumber:
+            result = windingNumberAlgorithm.isPointInPolygon();
+            break;
+        }
 
         if (!result) {
           return;
         }
 
-        state.isInPolygonRaycast = result.pointInsidePolygon ? InPolygonResult.InPolygon : InPolygonResult.NotInPolygon;
+        state.isPointInPolygon.set(
+          state.getAlgorithm(),
+          result.pointInsidePolygon ? InPolygonResult.InPolygon : InPolygonResult.NotInPolygon);
         result.intersectionPoints.forEach(intersection => {
           state.addIntersectionNoRedrawRequest(intersection);
         });
