@@ -45,6 +45,10 @@ export class DebuggerComponent implements OnInit {
   }
 
   reset(): void {
+    if (this.router.url === '/') {
+      this.state.reset();
+      return;
+    }
     this.router.navigateByUrl('');
   }
 
