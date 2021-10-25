@@ -6,8 +6,16 @@ export class Vector2 {
         return new Vector2(this.X + other.X, this.Y + other.Y);
     }
 
+    public subtract(other: Vector2): Vector2 {
+        return new Vector2(this.X - other.X, this.Y - other.Y);
+    }
+
     public multiply(w: number): Vector2 {
         return new Vector2(this.X * w, this.Y * w);
+    }
+
+    public dotProduct(other: Vector2): number {
+        return this.X * other.X + this.Y * other.Y;
     }
 
     public norm(): number {
