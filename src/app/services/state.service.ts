@@ -19,7 +19,7 @@ export class StateService {
     private displayDebugger = false;
     public becauseText = new Map<Algorithm, string>();
 
-    public currentAlgorithm = Algorithm.Raycast;
+    public currentAlgorithm = Algorithm.WindingNumber;
     public isPointInPolygon = new Map<Algorithm, InPolygonResult>();
 
     private redrawRequestSubject = new Subject<void>();

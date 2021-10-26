@@ -25,6 +25,7 @@ import { PageComponent } from './components/page/page.component';
 import { TutorialComponent } from './components/cards/tutorial/tutorial.component';
 import { InPolygonComponent } from './components/cards/settings/in-polygon/in-polygon.component';
 import { NonZeroComponent } from './components/cards/settings/non-zero/non-zero.component';
+import { WindingNumberComponent } from './components/cards/settings/winding-number/winding-number.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NonZeroComponent } from './components/cards/settings/non-zero/non-zero.
     InPolygonComponent,
     TutorialComponent,
     PageComponent,
-    NonZeroComponent
+    NonZeroComponent,
+    WindingNumberComponent
   ],
   imports: [
     BrowserModule,

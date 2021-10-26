@@ -1,5 +1,5 @@
-export interface VertexModel {
-    X: number;
-    Y: number;
+import { XY } from "./XY.model";
+
+export interface VertexModel extends XY {
     positionInPolygon: number;
 }

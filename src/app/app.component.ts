@@ -10,6 +10,7 @@ import { NonZeroAlgorithm } from './pip/non-zero.algorithm';
 import { PresetPolygonService } from './services/preset-polygon.service';
 import { RenderService } from './services/render.service';
 import { StateService } from './services/state.service';
+import { WindingNumberAlgorithm } from './pip/winding-number.algorithm';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
     renderService: RenderService,
     raycastAlgorithm: RaycastAlgorithm,
     nonZeroAlgorithm: NonZeroAlgorithm,
+    windingNumberAlgorithm: WindingNumberAlgorithm,
     router: Router,
     private readonly presetPolygonService: PresetPolygonService,
     private readonly stateService: StateService,
@@ -37,6 +39,9 @@ export class AppComponent {
             break;
           case Algorithm.NonZero:
             result = nonZeroAlgorithm.isPointInPolygon();
+            break;
+          case Algorithm.WindingNumber:
+            result = windingNumberAlgorithm.isPointInPolygon();
             break;
         }
 
