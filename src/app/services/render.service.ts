@@ -82,6 +82,15 @@ export class RenderService {
         this.context.clearRect(0, 0, this.width, this.height);
 
         const vertices = this.state.getPolygon()?.vertices ?? [];
+        const point = this.state.getPoint();
+
+        if (this.state.currentAlgorithm === Algorithm.WindingNumber && point !== undefined) {
+            if (point.Y > 0)
+                vertices.forEach(vertex => {
+                    this.drawConnectionToPoint(vertex, point);
+                });
+        }
+
         vertices.forEach(vertex => {
             if (vertices.length > 1) {
                 const vertexPosition = vertex.positionInPolygon - 1;
@@ -96,7 +105,6 @@ export class RenderService {
             this.drawVertex(vertex, vertex.positionInPolygon == maxPosition);
         });
 
-        const point = this.state.getPoint();
         if (point) {
             this.drawPoint(point);
         }
@@ -199,6 +207,33 @@ export class RenderService {
         this.context.lineTo(toVertex.X, toVertex.Y);
         this.context.lineWidth = 2;
         this.context.strokeStyle = 'white';
+
+        if (this.state.getDisplayDebugger()) {
+            var headlen = 30; // length of head in pixels
+            var dx = toVertex.X - fromVertex.X;
+            var dy = toVertex.Y - fromVertex.Y;
+            var angle = Math.atan2(dy, dx);
+            this.context.moveTo(toVertex.X, toVertex.Y);
+            this.context.lineTo(toVertex.X - headlen * Math.cos(angle - Math.PI / 6), toVertex.Y - headlen * Math.sin(angle - Math.PI / 6));
+            this.context.moveTo(toVertex.X, toVertex.Y);
+            this.context.lineTo(toVertex.X - headlen * Math.cos(angle + Math.PI / 6), toVertex.Y - headlen * Math.sin(angle + Math.PI / 6));
+
+        }
+
+        this.context.stroke();
+    }
+
+    public drawConnectionToPoint(vertex: VertexModel, point: PointModel) {
+        if (!this.initialized) {
+            this.debuggerService.logError(this.cannotDrawError);
+            return;
+        }
+
+        this.context.beginPath();
+        this.context.moveTo(vertex.X, vertex.Y);
+        this.context.lineTo(point.X, point.Y);
+        this.context.lineWidth = 1;
+        this.context.strokeStyle = '#d3d3d3';
         this.context.stroke();
     }
 
