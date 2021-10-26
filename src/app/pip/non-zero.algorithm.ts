@@ -12,7 +12,7 @@ import { VectorRay } from "./vector/vector-ray";
 @Injectable({
     providedIn: 'root'
 })
-export class WindingNumberAlgorithm implements PointInPolygon {
+export class NonZeroAlgorithm implements PointInPolygon {
 
     constructor(
         private readonly state: StateService,
@@ -47,7 +47,7 @@ export class WindingNumberAlgorithm implements PointInPolygon {
             }
         });
         const t2 = performance.now();
-        this.debuggerState.setAlgorithmTime(Algorithm.WindingNumber, t2 - t1);
+        this.debuggerState.setAlgorithmTime(Algorithm.NonZero, t2 - t1);
 
         const pointInsidePolygon = windingNumber !== 0;
         const becauseText = `The winding number is ${windingNumber}. Since this number ${pointInsidePolygon ? 'is not' : 'is'} equal to zero, the point is ${pointInsidePolygon ? 'inside' : 'outside'} of the polygon.`;

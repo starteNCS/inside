@@ -108,7 +108,7 @@ export class RenderService {
             }
         }
 
-        if (this.state.currentAlgorithm === Algorithm.WindingNumber && point) {
+        if (this.state.currentAlgorithm === Algorithm.NonZero && point) {
             const ray = new VectorRay(new Vector2(point?.X, point.Y), new Vector2(1, 0));
             this.drawRay(ray);
         }

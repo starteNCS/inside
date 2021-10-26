@@ -1,4 +1,5 @@
 export enum Algorithm {
     Raycast = 0,
-    WindingNumber = 1
+    NonZero = 1,
+    WindingNumber = 2
 }

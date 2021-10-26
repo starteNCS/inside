@@ -6,7 +6,7 @@ import { Algorithm } from './models/enums/algorithm.enum';
 import { InPolygonResult } from './models/enums/in-polygon-result.enum';
 import { ResultModel } from './models/result.model';
 import { RaycastAlgorithm } from './pip/raycast.algorithm';
-import { WindingNumberAlgorithm } from './pip/winding-number.algorithm';
+import { NonZeroAlgorithm } from './pip/non-zero.algorithm';
 import { PresetPolygonService } from './services/preset-polygon.service';
 import { RenderService } from './services/render.service';
 import { StateService } from './services/state.service';
@@ -22,7 +22,7 @@ export class AppComponent {
     state: StateService,
     renderService: RenderService,
     raycastAlgorithm: RaycastAlgorithm,
-    windingNumberAlgorithm: WindingNumberAlgorithm,
+    nonZeroAlgorithm: NonZeroAlgorithm,
     router: Router,
     private readonly presetPolygonService: PresetPolygonService,
     private readonly stateService: StateService,
@@ -35,8 +35,8 @@ export class AppComponent {
           case Algorithm.Raycast:
             result = raycastAlgorithm.isPointInPolygon();
             break;
-          case Algorithm.WindingNumber:
-            result = windingNumberAlgorithm.isPointInPolygon();
+          case Algorithm.NonZero:
+            result = nonZeroAlgorithm.isPointInPolygon();
             break;
         }
 
