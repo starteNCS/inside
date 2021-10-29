@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Count</h1>
+<div mat-dialog-content>
+    <p>Choose how often a random point should be generated</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Count</mat-label>
+        <input matInput [(ngModel)]="count">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="count" cdkFocusInitial>Run</button>
+</div>

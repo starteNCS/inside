@@ -5,7 +5,9 @@ import { InPolygonResult } from "../models/enums/in-polygon-result.enum";
 import { PointModel } from "../models/point.model";
 import { PolygonModel } from "../models/polygon.model";
 import { VertexModel } from "../models/vertex.model";
+import { Vector2 } from "../pip/vector/vector";
 import { VectorRay } from "../pip/vector/vector-ray";
+import { toVector } from "./utils/to-vector";
 
 @Injectable({
     providedIn: 'root'
@@ -95,6 +97,7 @@ export class StateService {
 
     public setPoint(point: PointModel): void {
         this.point = point;
+        this.setRay(new VectorRay(toVector(point), new Vector2(1, 0)));
         this.redrawRequestSubject.next();
     }
 

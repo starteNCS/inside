@@ -72,10 +72,18 @@
         </tr>
       </table>
       <div class="simulate">
-        <button mat-raised-button color="primary" [disabled]="isSimulationRunning" (click)="startSimulation()">
+        <button mat-raised-button color="primary"
+          [disabled]="isSimulationRunning || state.currentAlgorithm !== algorithm.Raycast" (click)="startSimulation()">
           Simulate every angle
         </button>
+        <button mat-raised-button color="primary" (click)="randomPoint()" [disabled]="randomPointInterval">
+          Randomly generate point
+        </button>
+        <p *ngIf="randomPointInterval">
+          Currently running: {{randomPointIntervalCurrent}} / {{randomPointIntervalMax}}
+        </p>
       </div>
+
     </div>
 
     <div class="logs">

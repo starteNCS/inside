@@ -16,6 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { SettingsComponent } from './components/cards/settings/settings.component';
 import { CanvasComponent } from './components/cards/canvas/canvas.component';
@@ -26,6 +29,8 @@ import { TutorialComponent } from './components/cards/tutorial/tutorial.componen
 import { InPolygonComponent } from './components/cards/settings/in-polygon/in-polygon.component';
 import { NonZeroComponent } from './components/cards/settings/non-zero/non-zero.component';
 import { WindingNumberComponent } from './components/cards/settings/winding-number/winding-number.component';
+import { CountDialogComponent } from './components/cards/debugger/count-dialog/count-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,11 +43,13 @@ import { WindingNumberComponent } from './components/cards/settings/winding-numb
     TutorialComponent,
     PageComponent,
     NonZeroComponent,
-    WindingNumberComponent
+    WindingNumberComponent,
+    CountDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
@@ -54,7 +61,10 @@ import { WindingNumberComponent } from './components/cards/settings/winding-numb
     MatButtonModule,
     MatSliderModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

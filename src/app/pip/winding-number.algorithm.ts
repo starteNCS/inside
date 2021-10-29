@@ -28,7 +28,6 @@ export class WindingNumberAlgorithm implements PointInPolygon {
         const pointVec = toVector(point);
 
         const t1 = performance.now();
-        console.clear()
 
         pairwise(vertices, (curr, next) => {
             const currpoint = pointVec.subtract(toVector(curr));
