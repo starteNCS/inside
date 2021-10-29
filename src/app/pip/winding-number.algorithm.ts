@@ -37,14 +37,16 @@ export class WindingNumberAlgorithm implements PointInPolygon {
             let angle = Math.atan2(currpoint.X * nextpoint.Y - currpoint.Y * nextpoint.X, currpoint.X * nextpoint.X + currpoint.Y * nextpoint.Y);
 
             windingNumber += angle;
-
         });
+
+        // it should be irrelevant wether the polygons are sorted clockwise or counterclockwise
+        windingNumber = Math.abs(windingNumber);
 
         const t2 = performance.now();
         this.debuggerState.setAlgorithmTime(Algorithm.WindingNumber, t2 - t1);
 
         const pointInsidePolygon = windingNumber > 0.05 || windingNumber < -0.05;
-        const becauseText = `The WindingNumber is ${Math.round(windingNumber / Math.PI)}PI (${windingNumber / Math.PI})`;
+        const becauseText = `The WindingNumber is ${Math.round(windingNumber / Math.PI)}PI. Since this ${pointInsidePolygon ? 'is not' : 'is'} zero, the point is ${pointInsidePolygon ? 'inside' : 'outside'} of the polygon.`;
 
         return {
             intersectionPoints: [],
