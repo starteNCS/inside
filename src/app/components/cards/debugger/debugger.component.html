@@ -50,6 +50,7 @@
           <th></th>
           <th>Raycast</th>
           <th>Non Zero</th>
+          <th>Winding</th>
           <th>To Vector Rays</th>
           <th>Redraw</th>
         </tr>
@@ -57,6 +58,7 @@
           <td class="left-align">Latest</td>
           <td>{{debuggerState.latestAlgorithmTime.get(algorithm.Raycast) ?? 0 | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.latestAlgorithmTime.get(algorithm.NonZero) ?? 0 | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.latestAlgorithmTime.get(algorithm.WindingNumber) ?? 0 | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.latestToVectorRaysTime | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.latestRedrawTime | number:'1.2-2'}}ms</td>
         </tr>
@@ -64,6 +66,7 @@
           <td class="left-align">Average</td>
           <td>{{debuggerState.averageAlgorithmTime.get(algorithm.Raycast) ?? 0 | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.averageAlgorithmTime.get(algorithm.NonZero) ?? 0 | number:'1.2-2'}}ms</td>
+          <td>{{debuggerState.averageAlgorithmTime.get(algorithm.WindingNumber) ?? 0 | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.averageToVectorRaysTime | number:'1.2-2'}}ms</td>
           <td>{{debuggerState.averageRedrawTime | number:'1.2-2'}}ms</td>
         </tr>
