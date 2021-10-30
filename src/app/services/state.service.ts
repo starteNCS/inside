@@ -83,12 +83,19 @@ export class StateService {
     }
 
     public addVertexToPolygon(vertex: VertexModel): void {
+        this.addVertexToPolygonNoRedrawRequest(vertex);
+        this.redrawRequestSubject.next();
+    }
+
+    public addVertexToPolygonNoRedrawRequest(vertex: VertexModel): void {
         if (!this.polygon) {
             this.polygon = { name: 'UserCreated', vertices: [], isComplete: false };
         }
-        const vertices = [...this.polygon.vertices, vertex];
-        this.polygon = { ...this.polygon, vertices, isComplete: vertices.length >= 3 };
-        this.redrawRequestSubject.next();
+        this.polygon.vertices.push(vertex);
+
+        if (this.polygon.vertices.length > 3) {
+            this.polygon.isComplete = true;
+        }
     }
 
     public setPointNoRedrawRequest(point: PointModel): void {
