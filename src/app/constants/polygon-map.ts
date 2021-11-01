@@ -50,5 +50,35 @@ export const PRESET_POLYGONS = new Map<string, PresetPolygonModel>([
             ],
             undefined
         )
+    ],
+    [
+        'mer',
+        new PresetPolygonModel(
+            'mer',
+            'meR',
+            [
+                { X: 0, Y: 1, positionInPolygon: 0 },
+                { X: 1, Y: 0, positionInPolygon: 1 },
+                { X: 4, Y: 3, positionInPolygon: 2 },
+                { X: 3, Y: 4, positionInPolygon: 3 },
+                { X: 4, Y: 1, positionInPolygon: 4 },
+                { X: 1, Y: 3, positionInPolygon: 5 },
+            ],
+            undefined
+        )
+    ],
+    [
+        'hourglass',
+        new PresetPolygonModel(
+            'hourglass',
+            'Sanduhr',
+            [
+                { X: 0, Y: 0, positionInPolygon: 0 },
+                { X: 4, Y: 4, positionInPolygon: 1 },
+                { X: 0, Y: 4, positionInPolygon: 2 },
+                { X: 4, Y: 0, positionInPolygon: 3 },
+            ],
+            undefined
+        )
     ]
 ])
